@@ -1,0 +1,141 @@
+<!-- Sidebar Toggle Button -->
+<button class="sidebar-toggle" (click)="toggleSidebar()">
+    <div class="hamburger" [class.active]="sidebarOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+  
+  <!-- Sidebar -->
+  <div class="sidebar" [class.open]="sidebarOpen">
+    <div class="sidebar-header">
+      <div class="logo">Artista</div>
+      <button class="close-btn" (click)="toggleSidebar()">x</button>
+    </div>
+    
+    <div class="sidebar-content">
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item" (click)="navigateTo('')">Home</a>
+        <a href="" class="nav-item" >Providers</a>
+        <a href="" class="nav-item" >Register</a>
+        <a href="" class="nav-item" >About us</a>
+        <a href="" class="nav-item" >Contact us</a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="social-links">
+          <a href="#" class="social-link">FB</a>
+          <a href="#" class="social-link">IG</a>
+          <a href="#" class="social-link">TW</a>
+        </div>
+        <div class="contact-info">
+          <p>hello&#64;artista.com</p>
+          <p>(555) 123-4567</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Overlay -->
+  <div class="sidebar-overlay" [class.active]="sidebarOpen" (click)="toggleSidebar()"></div>
+  
+  <!-- Main Content (your existing content) -->
+  <div class="main-content" [class.sidebar-open]="sidebarOpen">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to Artista</h1>
+        <p>Connecting Artists & Producers. Book Your Studio, Share Stems, Create Magic.</p>
+        <a href="#booking" class="btn">Book a Session</a>
+      </div>
+    </section>
+  
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <h2>Why Choose Artista</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="icon-microphone"></i>
+          </div>
+          <h3>Pro Equipment</h3>
+          <p>Access top-of-the-line recording equipment in all our partner studios.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="icon-sliders"></i>
+          </div>
+          <h3>Expert Producers</h3>
+          <p>Collaborate with award-winning producers to elevate your sound.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="icon-share"></i>
+          </div>
+          <h3>Stem Sharing</h3>
+          <p>Easily share and collaborate on stems with our secure platform.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+      <div class="image0"></div>
+      <div class="image1"></div>
+      <div class="image2"></div>
+      <div class="image3"></div>
+    </section>
+  
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+      <h2>What Artists Say</h2>
+      <div class="testimonials-container">
+        <div class="testimonial">
+          <div class="testimonial-image"></div>
+          <p class="quote">"Artista connected me with the perfect producer for my EP. The studio was amazing and the process was seamless."</p>
+          <p class="author">- Alex Rivera, Indie Artist</p>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-image"></div>
+          <p class="quote">"The stem sharing feature saved us so much time. I could collaborate remotely with my producer between sessions."</p>
+          <p class="author">- Jamie Chen, Producer</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Booking Section -->
+    <section id="booking" class="booking">
+      <h2>Book Your Studio Session</h2>
+      <p>Choose a studio, collaborate with top producers, and share stems effortlessly.</p>
+      <a href="#" class="btn">Get Started</a>
+    </section>
+  
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Artista</h3>
+          <p>Connecting artists and producers since 2023.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p>Email: hello&#64;artista.com</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="#" class="social-icon">FB</a>
+            <a href="#" class="social-icon">IG</a>
+            <a href="#" class="social-icon">TW</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Artista. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+  
+  
