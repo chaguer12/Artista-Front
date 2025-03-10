@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {FormBuilder, type FormGroup, Validators,ReactiveFormsModule} from "@angular/forms"
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from "../sidebar/sidebar.component";
 
 @Component({
   selector: 'app-contact',
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SidebarComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })

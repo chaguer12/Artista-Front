@@ -1,41 +1,4 @@
-<button class="sidebar-toggle" (click)="toggleSidebar()">
-    <div class="hamburger" [class.active]="sidebarOpen">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </button>
-  
-  <div class="sidebar" [class.open]="sidebarOpen">
-    <div class="sidebar-header">
-      <div class="logo">Artista</div>
-      <button class="close-btn" (click)="toggleSidebar()">x</button>
-    </div>
-    
-    <div class="sidebar-content">
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item">Home</a>
-        <a href="" class="nav-item">Providers</a>
-        <a href="" class="nav-item">Register</a>
-        <a href="" class="nav-item">About us</a>
-        <a href="" class="nav-item active">Contact us</a>
-      </nav>
-      
-      <div class="sidebar-footer">
-        <div class="social-links">
-          <a href="#" class="social-link">FB</a>
-          <a href="#" class="social-link">IG</a>
-          <a href="#" class="social-link">TW</a>
-        </div>
-        <div class="contact-info">
-          <p>hello&#64;artista.com</p>
-          <p>(555) 123-4567</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="sidebar-overlay" [class.active]="sidebarOpen" (click)="toggleSidebar()"></div>
+<app-sidebar></app-sidebar>
   
   <!-- Main Content -->
   <div class="main-content" [class.sidebar-open]="sidebarOpen">

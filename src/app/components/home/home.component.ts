@@ -1,8 +1,9 @@
 import { Component,type OnInit,HostListener } from '@angular/core';
+import { SidebarComponent } from "../sidebar/sidebar.component";
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [SidebarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -14,37 +15,7 @@ export class HomeComponent implements OnInit{
       this.setActiveNavOnScroll()
   }
 
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen
-
-    
-    if (this.sidebarOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
-  }
-  navigateTo(sectionId: string) {
-    
-    setTimeout(() => {
-      this.sidebarOpen = false
-      document.body.style.overflow = ""
-    }, 150)
-  }
-  @HostListener("document:keydown.escape")
-  onEscapePress() {
-      if (this.sidebarOpen) {
-      this.toggleSidebar()
-      }
-  }
-
-  @HostListener("window:resize", ["$event"])
-  onResize(event: any) {
-   
-    if (window.innerWidth > 1024 && this.sidebarOpen) {
-      this.toggleSidebar()
-    }
-  }
+ 
   animateOnScroll() {
     const observer = new IntersectionObserver(
       (entries) => {
