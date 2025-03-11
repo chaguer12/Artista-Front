@@ -1,21 +1,22 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder, type FormGroup, Validators,ReactiveFormsModule} from "@angular/forms"
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 
 @Component({
   selector: 'app-contact',
+  standalone: true, 
   imports: [CommonModule, ReactiveFormsModule, SidebarComponent],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
   sidebarOpen = false;
-  contactForm!: FormGroup
-  submitted = false
-  currentYear = new Date().getFullYear()
+  contactForm!: FormGroup;
+  submitted = false;
+  currentYear = new Date().getFullYear();
 
-  constructor(@Inject(FormBuilder)private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
@@ -23,41 +24,29 @@ export class ContactComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       subject: ["", Validators.required],
       message: ["", Validators.required],
-    })
+    });
   }
 
   toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen
-
-    
-    if (this.sidebarOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
+    this.sidebarOpen = !this.sidebarOpen;
+    document.body.style.overflow = this.sidebarOpen ? "hidden" : "";
   }
+
   get f() {
-    return this.contactForm.controls
+    return this.contactForm.controls;
   }
-
 
   onSubmit(): void {
-    this.submitted = true
+    this.submitted = true;
 
-    // Stop here if form is invalid
     if (this.contactForm.invalid) {
-      return
+      console.log("Validation error !");
     }
 
-    // Process form submission
-    console.log("Form submitted:", this.contactForm.value)
+    console.log("Form submitted:", this.contactForm.value);
+    alert("Thank you for your message! We'll get back to you soon.");
 
-    // Show success message (you can replace with your preferred notification method)
-    alert("Thank you for your message! We'll get back to you soon.")
-
-    // Reset form
-    this.submitted = false
-    this.contactForm.reset()
+    this.submitted = false;
+    this.contactForm.reset();
   }
 }
-
