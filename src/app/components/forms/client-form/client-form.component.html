@@ -1,56 +1,58 @@
 <app-sidebar></app-sidebar>
-<app-sidebar></app-sidebar>
 
+<div class="signup-page-container">
     <div class="signup-container">
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-          <div>
-            <label for="fullName">Full Name</label>
-            <input id="fullName" formControlName="fullName" />
-            <div *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.invalid">
-              <span *ngIf="signupForm.get('fullName')?.hasError('required')">Full Name is required</span>
-            </div>
-          </div>
-      
-          <div>
-            <label for="userName">Username</label>
-            <input id="userName" formControlName="userName" />
-            <div *ngIf="signupForm.get('userName')?.touched && signupForm.get('userName')?.invalid">
-              <span *ngIf="signupForm.get('userName')?.hasError('required')">Username is required</span>
-              <span *ngIf="signupForm.get('userName')?.hasError('minlength')">Username must be at least 6 characters</span>
-              <span *ngIf="signupForm.get('userName')?.hasError('maxlength')">Username cannot be more than 40 characters</span>
-            </div>
-          </div>
-      
-          <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" formControlName="password" />
-            <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
-              <span *ngIf="signupForm.get('password')?.hasError('required')">Password is required</span>
-              <span *ngIf="signupForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</span>
-            </div>
-          </div>
-      
-          <div>
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" formControlName="confirmPassword" />
-            <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid">
-              <span *ngIf="signupForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</span>
-              <span *ngIf="signupForm.get('confirmPassword')?.hasError('minlength')">Confirm Password must be at least 8 characters</span>
-              <span *ngIf="signupForm.get('confirmPassword')?.hasError('passwordMismatch')">Passwords do not match</span>
-            </div>
-          </div>
-      
-          <div>
-            <label for="email">Email</label>
-            <input id="email" formControlName="email" />
-            <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
-              <span *ngIf="signupForm.get('email')?.hasError('required')">Email is required</span>
-              <span *ngIf="signupForm.get('email')?.hasError('email')">Please enter a valid email</span>
-            </div>
-          </div>
-      
-          <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
-        </form>
-      </div>
-      
-
+        <div class="form-content">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+              <div>
+                <label for="fullName">Full Name</label>
+                <input id="fullName" formControlName="fullName" />
+                <div *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.invalid">
+                  <span *ngIf="signupForm.get('fullName')?.hasError('required')">Full Name is required</span>
+                </div>
+              </div>
+          
+              <div>
+                <label for="userName">Username</label>
+                <input id="userName" formControlName="userName" />
+                <div *ngIf="signupForm.get('userName')?.touched && signupForm.get('userName')?.invalid">
+                  <span *ngIf="signupForm.get('userName')?.hasError('required')">Username is required</span>
+                  <span *ngIf="signupForm.get('userName')?.hasError('minlength')">Username must be at least 6 characters</span>
+                  <span *ngIf="signupForm.get('userName')?.hasError('maxlength')">Username cannot be more than 40 characters</span>
+                </div>
+              </div>
+          
+              <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password" />
+                <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+                  <span *ngIf="signupForm.get('password')?.hasError('required')">Password is required</span>
+                  <span *ngIf="signupForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</span>
+                </div>
+              </div>
+          
+              <div>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" />
+                <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid">
+                  <span *ngIf="signupForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</span>
+                  <span *ngIf="signupForm.get('confirmPassword')?.hasError('minlength')">Confirm Password must be at least 8 characters</span>
+                  <span *ngIf="signupForm.get('confirmPassword')?.hasError('passwordMismatch')">Passwords do not match</span>
+                </div>
+              </div>
+          
+              <div>
+                <label for="email">Email</label>
+                <input id="email" formControlName="email" />
+                <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+                  <span *ngIf="signupForm.get('email')?.hasError('required')">Email is required</span>
+                  <span *ngIf="signupForm.get('email')?.hasError('email')">Please enter a valid email</span>
+                </div>
+              </div>
+          
+              <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+            </form>
+        </div>
+        <div class="image-content"></div>
+    </div>
+</div>
