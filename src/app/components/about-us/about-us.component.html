@@ -1,0 +1,183 @@
+<app-sidebar></app-sidebar>
+<div class="about-us-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="content-wrapper">
+        <h1 class="heading-primary ">About Us</h1>
+        <p class="subheading">Building innovative solutions for tomorrow's challenges</p>
+      </div>
+    </section>
+  
+    <!-- Introduction Section -->
+    <section class="section">
+      <div class="content-wrapper">
+        <h2 class="heading-secondary">Who We Are</h2>
+        <div class="text-content">
+          <p>
+            Welcome to our company, where innovation meets expertise. We are a team of passionate professionals dedicated to delivering cutting-edge solutions that transform how businesses operate in the digital landscape.
+          </p>
+          <p>
+            Founded in 2015, we've grown from a small startup to an industry leader, serving clients across the globe with our innovative products and services.
+          </p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Mission & Values Section -->
+    <section class="section accent-section">
+      <div class="content-wrapper">
+        <h2 class="heading-secondary">Our Mission</h2>
+        <div class="text-content">
+          <p>
+            Our mission is to empower businesses through technology, creating solutions that drive growth, efficiency, and competitive advantage in an ever-evolving digital world.
+          </p>
+        </div>
+        
+        <h3 class="heading-tertiary">Our Values</h3>
+        <div class="values-grid">
+          <div class="value-card" *ngFor="let value of values">
+            <h4>{{value.title}}</h4>
+            <p>{{value.description}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- History Section -->
+    <section class="section">
+      <div class="content-wrapper">
+        <h2 class="heading-secondary">Our Journey</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h4>2015</h4>
+              <p>Founded with a vision to revolutionize the industry through innovative technology solutions.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h4>2017</h4>
+              <p>Launched our flagship product, reaching our first 100 customers.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h4>2019</h4>
+              <p>Expanded operations globally, opening offices in Europe and Asia.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h4>2022</h4>
+              <p>Recognized as an industry leader with multiple awards for innovation and excellence.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h4>Today</h4>
+              <p>Continuing to innovate and grow, with a focus on sustainability and future-ready solutions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Team Section -->
+    <section class="section">
+      <div class="content-wrapper">
+        <h2 class="heading-secondary">Our Team</h2>
+        <p class="section-intro">Meet the talented individuals who make our success possible.</p>
+        
+        <div class="team-grid">
+          <div class="team-card" *ngFor="let member of teamMembers">
+            <div class="team-image">
+              <img [src]="member.imageUrl" [alt]="member.name">
+            </div>
+            <div class="team-info">
+              <h4>{{member.name}}</h4>
+              <p class="position">{{member.position}}</p>
+              <p class="bio">{{member.bio}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="section accent-section">
+      <div class="content-wrapper">
+        <h2 class="heading-secondary">What Makes Us Unique</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="material-icons">lightbulb</i>
+            </div>
+            <h4>Innovative Approach</h4>
+            <p>We don't just follow trends—we set them, constantly pushing the boundaries of what's possible.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="material-icons">people</i>
+            </div>
+            <h4>Client-Centric Focus</h4>
+            <p>Your success is our success. We work closely with you to understand and meet your unique needs.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="material-icons">trending_up</i>
+            </div>
+            <h4>Proven Results</h4>
+            <p>Our solutions have helped businesses increase efficiency by an average of 35%.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="material-icons">eco</i>
+            </div>
+            <h4>Sustainable Practices</h4>
+            <p>We're committed to environmentally responsible business practices in everything we do.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Call to Action Section -->
+    <section class="section cta-section">
+      <div class="content-wrapper">
+        <h2 class="heading-secondary">Let's Work Together</h2>
+        <p class="cta-text">Ready to take your business to the next level? We'd love to hear from you.</p>
+        <div class="cta-buttons">
+          <a routerLink="/contact" class="btn btn-primary">Contact Us</a>
+          <a routerLink="/services" class="btn btn-secondary">Explore Our Services</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Artista</h3>
+            <p>Connecting artists and producers since 2023.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Contact</h3>
+            <p>Email: hello&#64;artista.com</p>
+            <p>Phone: (555) 123-4567</p>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a href="#" class="social-icon">FB</a>
+              <a href="#" class="social-icon">IG</a>
+              <a href="#" class="social-icon">TW</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 Artista. All rights reserved.</p>
+        </div>
+      </footer>
+  </div>
