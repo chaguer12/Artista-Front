@@ -3,6 +3,9 @@
 <div class="signup-page-container">
     <div class="signup-container">
         <div class="form-content">
+          <div *ngIf="errorMessage" class="error-message">
+            <p>{{ errorMessage }}</p>
+          </div>
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
               <div>
                 <label for="fullName">Full Name</label>

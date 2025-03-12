@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ClientFormComponent implements OnInit {
   signupForm!: FormGroup;
+  errorMessage: string = "";
   constructor(private fb: FormBuilder, private userService:UserService,private router:Router) {}
 
   ngOnInit(): void {
@@ -40,11 +41,18 @@ export class ClientFormComponent implements OnInit {
   
   onSubmit(): void {
     if (this.signupForm.valid) {
-      console.log('Form Data:', this.signupForm.value);
-      // Submit form data to backend API here
+      console.log('Form Data to request:', this.signupForm.value);
       this.userService.createUser(this.signupForm.value).subscribe(
         (resp) =>{ console.log("user created:", resp);},
-        (err) => { console.log("error creating user:", err);}
+        (err) => {
+           console.log("error creating user:", err);
+           if (err.error && err.error.message) {
+            this.errorMessage = err.error.message;
+          } else {
+            this.errorMessage = 'An error occurred while creating the user. Please try again later.';
+          }
+
+        }
       );
     } else {
       console.log('Form is invalid');
