@@ -1,14 +1,14 @@
 /* Dark theme variables */
 :host {
-    --primary-color: #7c4dff;
-    --primary-light: #b47cff;
-    --primary-dark: #3f1dcb;
-    --accent-color: #00e5ff;
+    --primary-color: #ff4500; /* Orange like homepage */
+    --primary-light: #ff6347;
+    --primary-dark: #cc3700;
+    --accent-color: #8a2be2; /* Purple accent */
     --text-primary: #ffffff;
     --text-secondary: #b0bec5;
-    --bg-primary: #121212;
-    --bg-secondary: #1e1e1e;
-    --bg-card: #2d2d2d;
+    --bg-primary: #111;
+    --bg-secondary: #1a1a1a;
+    --bg-card: #222;
     --border-color: #333333;
   
     display: block;
@@ -30,7 +30,23 @@
   }
   
   .section {
-    padding: 5rem 0;
+    padding: 80px 40px;
+    text-align: center;
+    background-color: var(--bg-secondary);
+  }
+  
+  .section:nth-child(odd) {
+    background-color: var(--bg-primary);
+  }
+  
+  .section::before {
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
   }
   
   .section:nth-child(even) {
@@ -47,8 +63,8 @@
   .heading-primary {
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    color: #ff4500;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
   }
   
   @media (max-width: 768px) {
@@ -58,21 +74,24 @@
   }
   
   .heading-secondary {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-light);
+    font-size: 2.8rem;
     position: relative;
+    padding-bottom: 1.5rem;
   }
   
-  .heading-secondary:after {
+  .heading-secondary::after {
     content: '';
     position: absolute;
-    bottom: -0.5rem;
-    left: 0;
-    width: 60px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
     height: 4px;
-    background-color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
   }
   
   @media (max-width: 768px) {
@@ -83,7 +102,7 @@
   
   /* Hero Section */
   .hero-section {
-    height: 50vh;
+    height: 100vh;
     min-height: 400px;
     display: flex;
     align-items: center;
@@ -91,15 +110,27 @@
                 url('assets/group.jpg') no-repeat center center;
     background-size: cover;
     position: relative;
+    text-align: center;
   }
   
   .hero-section .content-wrapper {
     position: relative;
     z-index: 2;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .subheading {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
   }
   
   .hero-section:after {
-    content: '';
+   
     position: absolute;
     bottom: 0;
     left: 0;
@@ -111,29 +142,27 @@
   /* Values Section */
   .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
   }
   
   .value-card {
     background-color: var(--bg-card);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid var(--accent-color);
+    transition: transform 0.3s ease;
   }
   
   .value-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
   }
   
   .value-card h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--primary-light);
   }
   
   .value-card p {
@@ -191,5 +220,239 @@
     padding-top: 20px;
     border-top: 1px solid #333;
     color: #ff4500;
+  }
+  .team-image {
+    background-image: url("assets/1.jpg");
+    width: 100%; /* L'image occupe toute la largeur du container */
+    height: 200px; /* Tu peux ajuster la hauteur en fonction de ton design */
+    background-size: cover; /* Cela garantit que l'image couvre toute la zone sans déformation */
+    background-position: center; /* Centrer l'image pour qu'elle soit bien positionnée */
+    border-radius: 8px; /* Ajoute des coins arrondis pour un effet plus moderne */
+    overflow: hidden; /* Cache les parties de l'image qui dépassent du cadre */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère autour de l'image */
+    transition: transform 0.3s ease; /* Ajoute une transition douce quand l'image est survolée */
+  }
+  
+  .team-image:hover {
+    transform: scale(1.05); 
+  }
+  
+  /* Team Section Styles */
+  .team-section {
+    background-color: var(--bg-secondary);
+    padding: 6rem 0;
+  }
+  
+  .section-intro {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .team-grid {
+    display: flex;
+    overflow-x: auto;
+    padding: 2rem 0;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .team-card {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid var(--accent-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .team-image-container {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+  }
+  
+  .team-member-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .team-card:hover .team-member-image {
+    transform: scale(1.05);
+  }
+  
+  .team-info {
+    padding: 1.5rem;
+    background: linear-gradient(to top, var(--bg-card), rgba(34, 34, 34, 0.9));
+  }
+  
+  .member-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .member-position {
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .member-bio {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  
+  /* Timeline Section */
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem 0;
+  }
+  
+  .timeline-item {
+    position: relative;
+    padding: 2rem;
+    background: var(--bg-card);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--primary-color);
+  }
+  
+  .timeline-item h4 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--bg-secondary), #252525);
+    text-align: center;
+    padding: 4rem 0;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  
+  .btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+  }
+  
+  .btn-secondary:hover {
+    background: var(--primary-color);
+  }
+  
+  /* Scrollbar styling */
+  .team-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .team-grid::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+  }
+  
+  .team-grid::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+  }
+  
+  .team-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .team-image-container {
+      height: 350px;
+    }
+  }
+  
+  /* Enhanced section styles */
+  .section {
+    padding: 6rem 0;
+    position: relative;
+  }
+  
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  }
+  
+  .heading-secondary {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-light);
+    font-size: 2.8rem;
+    position: relative;
+    padding-bottom: 1.5rem;
+  }
+  
+  .heading-secondary::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
   }
   

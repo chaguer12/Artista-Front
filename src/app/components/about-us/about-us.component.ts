@@ -12,28 +12,28 @@ import { SidebarComponent } from "../sidebar/sidebar.component";
 export class AboutUsComponent {
   teamMembers = [
     {
-      name: 'Jane Doe',
+      name: 'Sarah Chen',
       position: 'CEO & Founder',
-      bio: 'With over 15 years of industry experience, Jane leads our company vision and strategy.',
-      imageUrl: 'assets/1.jpg'
+      bio: 'With over 15 years of industry experience, Sarah leads our company vision and strategy.',
+      image: 'assets/about-us/team1.jpg'
     },
     {
-      name: 'John Smith',
-      position: 'CTO',
-      bio: 'John brings technical expertise and innovation to our products and services.',
-      imageUrl: 'assets/2.jpg'
+      name: 'Emma Thompson',
+      position: 'Creative Director',
+      bio: 'Emma brings creative excellence and innovation to our artistic direction.',
+      image: 'assets/about-us/team2.jpg'
     },
     {
-      name: 'Emily Chen',
-      position: 'Design Director',
-      bio: 'Emily ensures our products are not only functional but beautiful and intuitive.',
-      imageUrl: 'assets/3.jpg'
+      name: 'David Rodriguez',
+      position: 'Technical Director',
+      bio: 'David ensures our technical infrastructure meets the highest standards.',
+      image: 'assets/about-us/team3.jpg'
     },
     {
-      name: 'Michael Johnson',
-      position: 'Head of Customer Success',
-      bio: 'Michael works tirelessly to ensure our clients achieve their goals with our solutions.',
-      imageUrl: 'assets/4.jpg'
+      name: 'Michael Anderson',
+      position: 'Head of Operations',
+      bio: 'Michael oversees our daily operations and strategic partnerships.',
+      image: 'assets/about-us/team4.jpg'
     }
   ];
 
