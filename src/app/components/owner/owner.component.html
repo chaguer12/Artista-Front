@@ -1,12 +1,98 @@
-<section class="studio-owners">
-    <div class="content">
-      <h1>Are you a studio owner?</h1>
-      <p>Join us and start your journey</p>
-      <button class="signup-btn">Sign Up as a Studio Owner</button>
-    </div>
+<div class="studio-owner-landing">
+    <app-sidebar></app-sidebar>
+    
+    <!-- Hero Section -->
+    <section class="hero hero-section" id="hero">
+        
+        <div class="hero-container">
+            <div class="content" [@fadeIn]>
+              <h1>Transform Your Studio Management</h1>
+              <p class="hero-subtitle">Streamline operations, increase revenue, and enhance client experience</p>
+              <div class="hero-cta">
+                <button class="primary-btn" (click)="navigateToSignup()">
+                  <span class="btn-text">Get Started</span>
+                  <span class="btn-icon">→</span>
+                </button>
+                <button class="secondary-btn" (click)="scrollToSection('features')">See Features</button>
+              </div>
+            </div>
+            
+            <div class="hero-image" [@fadeIn]>
+              <div class="image"></div>
+            </div>
+          </div>
+      
+        </section>
   
-    <div class="image-placeholder">
-      <p>Image Placeholder</p>
-    </div>
-  </section>
+    <!-- Stats Banner -->
+    <section class="stats-banner">
+      <div class="stat-item">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Studios</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">30%</div>
+        <div class="stat-label">Average Growth</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50k+</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Support</div>
+      </div>
+    </section>
   
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="section-header">
+        <h2>Powerful Features for Studio Owners</h2>
+        <p class="section-subtitle">Everything you need to manage and grow your studio business</p>
+      </div>
+      
+      <div class="features-container">
+        <div class="feature-card" *ngFor="let feature of features; let i = index" [attr.aria-label]="feature.title" [@fadeIn]>
+          <div class="feature-icon">
+            <i class="{{feature.icon}}"></i>
+          </div>
+          <h3>{{feature.title}}</h3>
+          <p>{{feature.description}}</p>
+          <a href="#" class="feature-link">Learn more <span class="arrow-icon">→</span></a>
+        </div>
+      </div>
+    </section>
+  
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="section-header">
+        <h2>Simple 4-Step Process</h2>
+        <p class="section-subtitle">Get your studio online in minutes, not weeks</p>
+      </div>
+      
+      <div class="steps-container">
+        <div class="step-card" *ngFor="let step of steps" [attr.aria-label]="step.title" [@slideIn]>
+          <div class="step-number">{{step.number}}</div>
+          <h3>{{step.title}}</h3>
+          <p>{{step.description}}</p>
+        </div>
+      </div>
+    </section>
+  
+
+  
+   
+    
+                
+  
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+      <div class="cta-content">
+        <h2>Start Transforming Your Studio Today</h2>
+        <p>Join hundreds of successful studio owners on our platform</p>
+        <button class="primary-btn cta-btn" (click)="navigateToSignup()">Get Started Now</button>
+      </div>
+    </section>
+  
+    
+  </div>
