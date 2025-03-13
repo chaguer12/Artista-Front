@@ -143,7 +143,7 @@ export class OwnerComponent implements OnInit {
   }
 
   navigateToSignup() {
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/register-admin']);
   }
 
   getCurrentYear() {
