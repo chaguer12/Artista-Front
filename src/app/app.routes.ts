@@ -5,6 +5,7 @@ import { ClientFormComponent } from './components/forms/client-form/client-form.
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { OwnerComponent } from './components/owner/owner.component';
 import { OwnerFormComponent } from './components/forms/owner-form/owner-form.component';
+import { ProviderFormComponent } from './components/forms/provider-form/provider-form.component';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path:'register',component:ClientFormComponent},
     {path:'about-us',component:AboutUsComponent},
     {path: 'owner',component:OwnerComponent},
-    {path:'register-admin',component:OwnerFormComponent}
+    {path:'register-admin',component:OwnerFormComponent},
+    {path: 'provider', component:ProviderFormComponent}
 ];
