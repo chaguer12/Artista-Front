@@ -7,6 +7,8 @@ import { OwnerComponent } from './components/owner/owner.component';
 import { OwnerFormComponent } from './components/forms/owner-form/owner-form.component';
 import { ProviderFormComponent } from './components/forms/provider-form/provider-form.component';
 import { AuthComponent } from './components/forms/auth/auth.component';
+import { DashboardComponent } from './components/owner/dashboard/dashboard.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -16,5 +18,6 @@ export const routes: Routes = [
     {path:'about-us',component:AboutUsComponent},
     {path: 'owner',component:OwnerComponent},
     {path:'register-admin',component:OwnerFormComponent},
-    {path: 'provider', component:ProviderFormComponent}
+    {path: 'provider', component:ProviderFormComponent},
+    {path: "dashboard", component:DashboardComponent, canActivate:[authGuard],data:{role:['ROLE_ADMIN']}}
 ];

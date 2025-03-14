@@ -4,18 +4,21 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f2f2f2;
+   
 }
-
+#title{
+    color: #ff4300;
+}
 /* Login form container */
 .login-container {
-    background-color: #fff;
+    background-color: #1e1e1e;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     padding: 20px;
     box-sizing: border-box;
+    border: 2px solid #8a2be2;
 }
 
 /* Form content */
@@ -30,13 +33,19 @@ input {
     padding: 12px;
     margin: 10px 0;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #8a2be2;
     font-size: 16px;
+}
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center;     /* Centers the button vertically */
+    width: 100%;             /* Ensures the container takes up full width */
 }
 
 /* Button */
 button {
-    background-color: #4CAF50;
+    background-color: #ff4300;
     color: white;
     padding: 14px 20px;
     border: none;
@@ -44,10 +53,11 @@ button {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #fe895f;
 }
 
 /* Error message */
