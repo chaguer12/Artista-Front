@@ -7,5 +7,7 @@ export interface User {
     address: string;
     city: string;
     profilePic: String;
+    isValid:boolean;
+    role: string;
 
 }

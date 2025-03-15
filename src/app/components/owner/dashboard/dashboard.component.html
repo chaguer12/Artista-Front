@@ -1,1 +1,112 @@
-<p>dashboard works!</p>
+<app-sidebar></app-sidebar>
+<section class="section">
+    <div class="container">
+      <div class="dashboard">
+        <!-- Main Content -->
+        <div class="content">
+          <div class="content-header">
+            <h1>Provider Management</h1>
+            <p>Create and manage provider accounts</p>
+          </div>
+  
+          <div class="card">
+            <div class="card-header">
+              <h2>Create Provider</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="providerForm" (ngSubmit)="onSubmit()">
+                    <div>
+                      <label for="fullName">Full Name</label>
+                      <input id="fullName" formControlName="fullName" />
+                      <div *ngIf="providerForm.get('fullName')?.touched && providerForm.get('fullName')?.invalid">
+                        <span *ngIf="providerForm.get('fullName')?.hasError('required')">Full Name is required</span>
+                      </div>
+                    </div>
+                
+                    <div>
+                      <label for="userName">Username</label>
+                      <input id="userName" formControlName="userName" />
+                      <div *ngIf="providerForm.get('userName')?.touched && providerForm.get('userName')?.invalid">
+                        <span *ngIf="providerForm.get('userName')?.hasError('required')">Username is required</span>
+                        <span *ngIf="providerForm.get('userName')?.hasError('minlength')">Username must be at least 6 characters</span>
+                        <span *ngIf="providerForm.get('userName')?.hasError('maxlength')">Username cannot be more than 40 characters</span>
+                      </div>
+                    </div>
+                
+                    <div>
+                      <label for="password">Password</label>
+                      <input type="password" id="password" formControlName="password" />
+                      <div *ngIf="providerForm.get('password')?.touched && providerForm.get('password')?.invalid">
+                        <span *ngIf="providerForm.get('password')?.hasError('required')">Password is required</span>
+                        <span *ngIf="providerForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</span>
+                      </div>
+                    </div>
+                
+                    <div>
+                      <label for="confirmPassword">Confirm Password</label>
+                      <input type="password" id="confirmPassword" formControlName="confirmPassword" />
+                      <div *ngIf="providerForm.get('confirmPassword')?.touched && providerForm.get('confirmPassword')?.invalid">
+                        <span *ngIf="providerForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</span>
+                        <span *ngIf="providerForm.get('confirmPassword')?.hasError('minlength')">Confirm Password must be at least 8 characters</span>
+                        <span *ngIf="providerForm.get('confirmPassword')?.hasError('passwordMismatch')">Passwords do not match</span>
+                      </div>
+                    </div>
+                
+                    <div>
+                      <label for="email">Email</label>
+                      <input id="email" formControlName="email" />
+                      <div *ngIf="providerForm.get('email')?.touched && providerForm.get('email')?.invalid">
+                        <span *ngIf="providerForm.get('email')?.hasError('required')">Email is required</span>
+                        <span *ngIf="providerForm.get('email')?.hasError('email')">Please enter a valid email</span>
+                      </div>
+                    </div>
+                
+                    <button type="submit" [disabled]="providerForm.invalid">Sign Up</button>
+                  </form>
+            </div>
+          </div>
+  
+          <div class="card mt-4">
+            <div class="card-header">
+              <h2>Provider List</h2>
+            </div>
+            <div class="card-body">
+              <div *ngIf="isLoading" class="loading">Loading providers...</div>
+              
+              <div *ngIf="!isLoading && providers.length === 0" class="empty-state">
+                No providers found. Create your first provider above.
+              </div>
+              
+              <table *ngIf="!isLoading && providers.length > 0" class="providers-table">
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let provider of providers">
+                    <td>{{ provider.userName }}</td>
+                    <td>{{ provider.email }}</td>
+                    <td>{{ provider.isValid }}</td>
+                    <td class="actions">
+                      <button class="btn-icon" title="Edit">
+                        <span class="material-icons">edit</span>
+                      </button>
+                      <button class="btn-icon btn-danger" title="Delete">
+                        <span class="material-icons">delete</span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
