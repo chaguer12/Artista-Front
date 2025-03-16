@@ -31,7 +31,6 @@ export class AuthComponent implements OnInit {
             (response) => {
               // Assuming response contains a JWT token
               const token = response.token;
-              this.authService.saveToken(token);
               this.router.navigate(['/dashboard']); // Redirect to dashboard or home
             },
             (error) => {
