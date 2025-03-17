@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +11,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class SidebarComponent implements OnInit {
   sidebarOpen = false;
 
+  constructor(private authService:AuthService){}
+
   ngOnInit(): void {
     this.animateOnScroll();
     this.setActiveNavOnScroll();
@@ -20,6 +23,9 @@ export class SidebarComponent implements OnInit {
       this.sidebarOpen = false;
       document.body.style.overflow = "";
     }, 150);
+  }
+  logout(){
+    this.authService.logout();    
   }
 
   toggleSidebar() {

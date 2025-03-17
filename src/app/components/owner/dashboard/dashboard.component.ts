@@ -48,7 +48,9 @@ export class DashboardComponent implements OnInit {
       next: (data) => {
         this.providers = data
         this.isLoading = false
-        
+        this.providers.forEach(provider => {
+          console.log(`Provider username: ${provider.userName}, isValid: ${provider.isValid}`);
+        });
       },
       error: (error) => {
         console.error("Error fetching providers", error)

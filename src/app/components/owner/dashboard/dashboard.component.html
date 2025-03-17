@@ -5,8 +5,8 @@
         <!-- Main Content -->
         <div class="content">
           <div class="content-header">
-            <h1>Provider Management</h1>
-            <p>Create and manage provider accounts</p>
+            <h1 class="text-center">Provider Management</h1>
+            <p class="text-center">Create and manage provider accounts</p>
           </div>
   
           <div class="card">
@@ -91,7 +91,9 @@
                     <td>{{ provider.userName }}</td>
                     <td>{{ provider.email }}</td>
                     <td [ngStyle]="{'color': provider.isValid ? 'green' : 'red'}">
-                        {{ provider.isValid ? '✔ Valid' : '✖ Invalid' }}
+                        {{
+                            provider.isValid ? '✔ Valid' : '✖ Invalid' 
+                            }}
                       </td>
                     <td class="actions">
                       <button class="btn-icon" title="Edit">

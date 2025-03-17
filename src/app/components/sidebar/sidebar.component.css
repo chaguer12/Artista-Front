@@ -181,4 +181,16 @@
   .main-content.sidebar-open {
     transform: translateX(300px);
   }
+  .logout-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
   
+  .logout-btn:hover {
+    background-color: #e63946;
+  }
