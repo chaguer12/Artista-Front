@@ -29,9 +29,8 @@ export class AuthComponent implements OnInit {
     
           this.authService.login(email, password).subscribe(
             (response) => {
-              // Assuming response contains a JWT token
               const token = response.token;
-              this.router.navigate(['/dashboard']); // Redirect to dashboard or home
+              this.router.navigate(['/dashboard']); 
             },
             (error) => {
               this.errorMessage = 'Invalid credentials or server error';

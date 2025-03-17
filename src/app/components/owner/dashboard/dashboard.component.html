@@ -90,7 +90,9 @@
                   <tr *ngFor="let provider of providers">
                     <td>{{ provider.userName }}</td>
                     <td>{{ provider.email }}</td>
-                    <td>{{ provider.isValid }}</td>
+                    <td [ngStyle]="{'color': provider.isValid ? 'green' : 'red'}">
+                        {{ provider.isValid ? '✔ Valid' : '✖ Invalid' }}
+                      </td>
                     <td class="actions">
                       <button class="btn-icon" title="Edit">
                         <span class="material-icons">edit</span>

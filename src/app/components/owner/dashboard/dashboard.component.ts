@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ProviderService } from '../../../services/provider.service';
 import { User } from '../../../models/user';
 import { CommonModule } from '@angular/common';
+import { CustomValidators } from '../../../utils/validation/custom-validators';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +35,11 @@ export class DashboardComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
         email: ['', [Validators.required, Validators.email]]
-    })
+    },
+    {
+      validators: CustomValidators.matchPasswords('password', 'confirmPassword')
+    }
+  )
   }
 
   fetchProviders(): void {
@@ -43,6 +48,7 @@ export class DashboardComponent implements OnInit {
       next: (data) => {
         this.providers = data
         this.isLoading = false
+        
       },
       error: (error) => {
         console.error("Error fetching providers", error)
@@ -78,25 +84,29 @@ export class DashboardComponent implements OnInit {
   }
 
   getFieldError(fieldName: string): string {
-    const field = this.providerForm.get(fieldName)
+    const field = this.providerForm.get(fieldName);
 
-    if (!field || !field.errors || !field.touched) {
-      return ""
-    }
+  if (!field || !field.errors || !field.touched) {
+    return "";
+  }
 
-    if (field.errors["required"]) {
-      return "This field is required"
-    }
+  if (field.errors["required"]) {
+    return "This field is required";
+  }
 
-    if (field.errors["email"]) {
-      return "Please enter a valid email"
-    }
+  if (field.errors["email"]) {
+    return "Please enter a valid email";
+  }
 
-    if (field.errors["minlength"]) {
-      return `Minimum length is ${field.errors["minlength"].requiredLength} characters`
-    }
+  if (field.errors["minlength"]) {
+    return `Minimum length is ${field.errors["minlength"].requiredLength} characters`;
+  }
 
-    return "Invalid field"
+  if (fieldName === 'confirmPassword' && this.providerForm.hasError('passwordsMismatch')) {
+    return "Passwords do not match";
+  }
+
+  return "Invalid field";
   }
 }
 
