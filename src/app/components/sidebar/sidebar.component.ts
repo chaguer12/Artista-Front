@@ -10,10 +10,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SidebarComponent implements OnInit {
   sidebarOpen = false;
-
+  isLoggedIn:boolean = false;
+  userRole:string |null = null;
   constructor(private authService:AuthService){}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.userRole = this.authService.getUserRole();
     this.animateOnScroll();
     this.setActiveNavOnScroll();
   }
