@@ -34,7 +34,9 @@ export class DashboardComponent implements OnInit {
         userName: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-        email: ['', [Validators.required, Validators.email]]
+        email: ['', [Validators.required, Validators.email]],
+        address:[''],
+        city:[''],
     },
     {
       validators: CustomValidators.matchPasswords('password', 'confirmPassword')

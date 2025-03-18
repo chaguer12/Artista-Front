@@ -30,7 +30,12 @@ export class AuthComponent implements OnInit {
           this.authService.login(email, password).subscribe(
             (response) => {
               const token = response.token;
-              this.router.navigate(['/dashboard']); 
+              const userRole = this.authService.getUserRole();
+              if(userRole === 'ROLE_ADMIN'){
+                this.router.navigate(['/dashboard']); 
+              }else if(userRole === 'ROLE_PROVIDER'){
+                this.router.navigate(['/equipment'])
+              }
             },
             (error) => {
               this.errorMessage = 'Invalid credentials or server error';

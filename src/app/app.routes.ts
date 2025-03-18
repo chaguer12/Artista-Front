@@ -10,6 +10,7 @@ import { AuthComponent } from './components/forms/auth/auth.component';
 import { DashboardComponent } from './components/owner/dashboard/dashboard.component';
 import { authGuard } from './guards/auth.guard';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { EquipmentComponent } from './components/provider/equipment/equipment.component';
 
     export const routes: Routes = [
         {path:'',component:HomeComponent},
@@ -21,6 +22,7 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
         {path:'register-admin',component:OwnerFormComponent},
         {path: 'provider', component:ProviderFormComponent},
         {path: "dashboard", component:DashboardComponent, canActivate:[authGuard],data:{role:['ROLE_ADMIN']}},
+        {path: "equipment", component:EquipmentComponent, canActivate:[authGuard],data:{role:['ROLE_PROVIDER']}},
         { path: 'unauthorized', component: UnauthorizedComponent },
         { path: '**', redirectTo: 'unauthorized' }
     ];

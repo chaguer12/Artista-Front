@@ -1,57 +1,52 @@
+/* Global styles */
 :host {
-  --primary-color: #ff4500; /* Orange like homepage */
+  --primary-color: #ff4500;
   --primary-light: #ff6347;
-  --primary-dark: #cc3700;
-  --accent-color: #8a2be2; /* Purple accent */
+  --accent-color: #8a2be2;
   --text-primary: #ffffff;
   --text-secondary: #b0bec5;
   --bg-primary: #111;
   --bg-secondary: #1a1a1a;
   --bg-card: #222;
   --border-color: #333333;
-
-  display: block;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Roboto', sans-serif;
 }
 
-/* Main Layout */
 .main-content {
-  min-height: 100vh;
   background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: transform 0.3s ease;
+}
+
+.main-content.sidebar-open {
+  transform: translateX(300px);
 }
 
 /* Page Header */
 .page-header {
-  padding: 4rem 2rem;
   background: linear-gradient(135deg, var(--bg-secondary), #252525);
+  padding: 80px 40px;
   text-align: center;
   position: relative;
   border-bottom: 1px solid var(--border-color);
 }
 
 .page-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 600;
   color: var(--primary-color);
   margin-bottom: 1rem;
+  animation: fadeIn 0.6s ease-out;
 }
 
 /* Contact Grid */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  padding: 60px 40px;
   max-width: 1200px;
   margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Card Styles */
@@ -60,49 +55,58 @@
 .map-card,
 .faq-card {
   background-color: var(--bg-card);
-  border-radius: 12px;
-  overflow: hidden;
+  border-radius: 10px;
   border: 3px solid var(--accent-color);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.contact-form-card:hover,
+.info-card:hover,
+.map-card:hover,
+.faq-card:hover {
+  transform: translateY(-5px);
 }
 
 .card-header {
-  padding: 1.5rem;
+  padding: 30px;
   border-bottom: 1px solid var(--border-color);
-  background: linear-gradient(to right, var(--bg-card), var(--bg-secondary));
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
 }
 
 .card-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 600;
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .card-description {
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .card-content {
-  padding: 1.5rem;
+  padding: 30px;
 }
 
 /* Form Styles */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 25px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 10px;
   font-weight: 500;
   color: var(--text-primary);
+  font-size: 1.1rem;
 }
 
 .form-control {
   width: 100%;
-  padding: 0.75rem;
+  padding: 12px;
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -123,26 +127,26 @@
 
 .error-message {
   color: #ff4444;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
 /* Submit Button */
 .submit-btn {
   width: 100%;
-  padding: 1rem;
+  padding: 15px;
   background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 10px;
 }
 
 .submit-btn:hover {
@@ -153,12 +157,10 @@
 
 /* Contact Info Styles */
 .info-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
+  padding: 20px;
   background: var(--bg-secondary);
   border-radius: 8px;
+  margin-bottom: 20px;
   transition: transform 0.3s ease;
 }
 
@@ -169,16 +171,18 @@
 .info-item i {
   color: var(--primary-color);
   font-size: 1.5rem;
-  margin-right: 1rem;
+  margin-right: 15px;
 }
 
 .info-details h3 {
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
 }
 
 .info-details p {
   color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 /* Map Styles */
@@ -193,14 +197,21 @@
 }
 
 /* FAQ Styles */
+.faq-section {
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .faq-grid {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
 }
 
 .faq-item {
   background: var(--bg-secondary);
-  padding: 1.5rem;
+  padding: 25px;
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
@@ -211,18 +222,20 @@
 
 .faq-item h3 {
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
 }
 
 .faq-item p {
   color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 /* Footer Styles */
 .page-footer {
   background-color: var(--bg-secondary);
-  padding: 2rem 0;
-  margin-top: 4rem;
+  padding: 40px 0;
+  margin-top: 60px;
   border-top: 1px solid var(--border-color);
 }
 
@@ -232,7 +245,7 @@
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 40px;
 }
 
 .copyright {
@@ -241,12 +254,14 @@
 
 .footer-social {
   display: flex;
-  gap: 1rem;
+  gap: 20px;
 }
 
 .social-icon {
   color: var(--text-secondary);
+  text-decoration: none;
   transition: color 0.3s ease;
+  font-size: 1.2rem;
 }
 
 .social-icon:hover {
@@ -259,28 +274,40 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.contact-form-card,
-.info-card,
-.map-card,
-.faq-card {
-  animation: fadeIn 0.6s ease-out forwards;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .contact-grid {
+    padding: 40px 20px;
+  }
+
+  .faq-section {
+    padding: 40px 20px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
 }
 
-/* Icons */
-.icon-mail,
-.icon-phone,
-.icon-map-pin,
-.icon-send {
-  color: var(--primary-color);
-}
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 2rem;
+  }
 
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #111;
-  color: #fff;
-  overflow-x: hidden;
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
 }
 
 /* Sidebar Toggle Button */

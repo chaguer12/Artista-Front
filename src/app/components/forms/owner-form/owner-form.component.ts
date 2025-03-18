@@ -4,6 +4,7 @@ import { ReactiveFormsModule,FormGroup, Validators,FormBuilder} from '@angular/f
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-owner-form',
@@ -15,7 +16,9 @@ export class OwnerFormComponent implements OnInit {
 
   signupForm!: FormGroup;
   errorMessage: string = "";
-    constructor(private fb: FormBuilder,private router:Router,private adminService: AdminService) {}
+  successMessage: string = "";
+  isLoading: boolean = false;
+    constructor(private fb: FormBuilder,private router:Router,private adminService: AdminService, private authService: AuthService) {}
 
   ngOnInit(): void {
       this.signupForm = this.fb.group({
@@ -41,19 +44,37 @@ export class OwnerFormComponent implements OnInit {
 
     onSubmit():void{
       if (this.signupForm.valid) {
-        console.log('Form Data to request:', this.signupForm.value);
-        this.adminService.createUser(this.signupForm.value).subscribe(
-          (resp) =>{ console.log("user created:", resp);},
-          (err) => {
-             console.log("error creating user:", err);
-             if (err.error && err.error.message) {
+        this.isLoading = true;
+        this.errorMessage = '';
+        this.successMessage = '';
+
+        this.adminService.createUser(this.signupForm.value).subscribe({
+          next: (resp) => {
+            this.successMessage = 'Owner account created successfully!';
+            // Automatically login after successful registration
+            const { email, password } = this.signupForm.value;
+            this.authService.login(email, password).subscribe({
+              next: () => {
+                this.router.navigate(['/dashboard']);
+              },
+              error: (err) => {
+                this.errorMessage = 'Account created but login failed. Please try logging in manually.';
+                this.router.navigate(['/login']);
+              }
+            });
+          },
+          error: (err) => {
+            this.isLoading = false;
+            if (err.error && err.error.message) {
               this.errorMessage = err.error.message;
             } else {
-              this.errorMessage = 'An error occurred while creating the user. Please try again later.';
+              this.errorMessage = 'An error occurred while creating the owner. Please try again later.';
             }
-  
+          },
+          complete: () => {
+            this.isLoading = false;
           }
-        );
+        });
       } else {
         console.log('Form is invalid');
       }

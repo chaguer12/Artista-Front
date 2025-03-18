@@ -60,6 +60,22 @@
                         <span *ngIf="providerForm.get('email')?.hasError('email')">Please enter a valid email</span>
                       </div>
                     </div>
+                    <div>
+                      <label for="address">Address</label>
+                      <input id="address" formControlName="address" />
+                      <div *ngIf="providerForm.get('address')?.touched && providerForm.get('address')?.invalid">
+                        <span *ngIf="providerForm.get('address')?.hasError('required')">address is required</span>
+                        <span *ngIf="providerForm.get('address')?.hasError('address')">Please enter a valid address</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label for="city">City</label>
+                      <input id="city" formControlName="city" />
+                      <div *ngIf="providerForm.get('city')?.touched && providerForm.get('city')?.invalid">
+                        <span *ngIf="providerForm.get('city')?.hasError('required')">city is required</span>
+                        <span *ngIf="providerForm.get('city')?.hasError('city')">Please enter a valid city</span>
+                      </div>
+                    </div>
                 
                     <button type="submit" [disabled]="providerForm.invalid">Sign Up</button>
                   </form>

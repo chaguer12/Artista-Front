@@ -17,8 +17,13 @@
     <div class="sidebar-content">
       <nav class="sidebar-nav">
         <a href="" class="nav-item" (click)="navigateTo('')">Home</a>
-        <a href="/owner" class="nav-item" >Providers</a>
-        <a href="/register" class="nav-item" >Register</a>
+        <a *ngIf="isLoggedIn" href="/" class="nav-item" >Profile</a>
+        <a *ngIf="!isLoggedIn" href="/owner" class="nav-item" >Providers</a>
+        <a *ngIf="!isLoggedIn"  href="/register" class="nav-item" >Register</a>
+        <a *ngIf="userRole === 'ROLE_ADMIN'" href="/dashboard" class="nav-item" >Dashboard</a>
+        <a *ngIf="userRole === 'ROLE_PROVIDER'" href="" class="nav-item" >Blog</a>
+        <a *ngIf="userRole === 'ROLE_PROVIDER'" href="" class="nav-item" >studio</a>
+        <a *ngIf="userRole === 'ROLE_PROVIDER'" href="" class="nav-item" >equipment</a>
         <a href="/about-us" class="nav-item" >About us</a>
         <a href="/contact" class="nav-item" >Contact us</a>
       </nav>

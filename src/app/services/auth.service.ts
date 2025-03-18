@@ -25,6 +25,8 @@ export class AuthService {
           if (response.token && response.refreshToken) {
             this.saveToken(response.token, response.refreshToken);
             this.startRefreshTokenTimer();
+            
+
           }
         }),
         catchError(error => {
@@ -106,6 +108,7 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const token = this.getToken();
+    console.log("token message: ", token);
     return token !== null && !this.jwtHelper.isTokenExpired(token);
   }
 

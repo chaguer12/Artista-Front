@@ -1,0 +1,278 @@
+.equipment-container {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #111;
+  color: #fff;
+}
+
+/* Form Styles */
+.equipment-form-section {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+  border: 3px solid #8a2be2;
+}
+
+.equipment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 500;
+  color: #fff;
+}
+
+.form-control {
+  padding: 0.75rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #222;
+  color: #fff;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #ff4500;
+  box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.1);
+}
+
+.error-message {
+  color: #ff4500;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Button Styles */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-primary, .btn-secondary, .btn-edit, .btn-delete {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #ff4500;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #ff6347;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+}
+
+.btn-secondary {
+  background-color: #222;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+/* Equipment List Styles */
+.equipment-list-section {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border: 3px solid #8a2be2;
+}
+
+.equipment-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.equipment-card {
+  background: #222;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid #333;
+}
+
+.equipment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-color: #ff4500;
+}
+
+.equipment-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #8a2be2;
+}
+
+.equipment-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.equipment-card:hover .equipment-image img {
+  transform: scale(1.1);
+}
+
+.equipment-info {
+  color: #fff;
+}
+
+.equipment-info h3 {
+  margin: 0 0 0.5rem 0;
+  color: #ff4500;
+  font-size: 1.5rem;
+}
+
+.equipment-info p {
+  margin: 0.25rem 0;
+  color: #fff;
+}
+
+.equipment-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.btn-edit {
+  background-color: #8a2be2;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #9b4deb;
+  transform: translateY(-2px);
+}
+
+.btn-delete {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #ef4444;
+  transform: translateY(-2px);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.status-badge.available {
+  background-color: #059669;
+  color: #fff;
+}
+
+.status-badge.in_use {
+  background-color: #ff4500;
+  color: #fff;
+}
+
+.status-badge.maintenance {
+  background-color: #dc2626;
+  color: #fff;
+}
+
+.no-equipment {
+  text-align: center;
+  padding: 2rem;
+  color: #fff;
+  background-color: #222;
+  border-radius: 10px;
+  border: 2px dashed #333;
+}
+
+/* Loading Styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #fff;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #222;
+  border-radius: 50%;
+  border-top-color: #ff4500;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .equipment-container {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-form-section {
+    position: static;
+  }
+
+  .equipment-card {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-image {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+h2 {
+  color: #ff4500;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
