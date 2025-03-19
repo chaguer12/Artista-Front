@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
-  private baseUrl = 'http://localhost:8082';
+  private apiUrl = 'http://localhost:8082/upload';
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private http: HttpClient,private authService:AuthService) { }
+  private getHeaders() {
+            const token = this.authService.getToken();
+            const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+            return headers;
+          }
   upload(file: File): Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
+    const formData = new FormData();
     formData.append('file', file);
-
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    return this.http.post<any>(`${this.apiUrl}`, formData, {
       reportProgress: true,
-      responseType: 'json'
-    });
-
-    return this.http.request(req);
+      observe: 'events',
+      headers:this.getHeaders()
+    },);
   }
 
   getFiles(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/files`);
+    return this.http.get(`${this.apiUrl}/files`);
   }
 } 

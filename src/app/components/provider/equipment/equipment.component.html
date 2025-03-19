@@ -11,7 +11,7 @@
           formControlName="name" 
           placeholder="Enter equipment name"
           class="form-control"
-          [disabled]="isLoading"
+          
         >
         <div class="error-message" *ngIf="equipmentForm.get('name')?.errors?.['required'] && equipmentForm.get('name')?.touched">
           Name is required
@@ -26,7 +26,7 @@
           formControlName="type" 
           placeholder="Enter equipment type"
           class="form-control"
-          [disabled]="isLoading"
+          
         >
         <div class="error-message" *ngIf="equipmentForm.get('type')?.errors?.['required'] && equipmentForm.get('type')?.touched">
           Type is required
@@ -41,7 +41,7 @@
           formControlName="brand" 
           placeholder="Enter brand name"
           class="form-control"
-          [disabled]="isLoading"
+          
         >
         <div class="error-message" *ngIf="equipmentForm.get('brand')?.errors?.['required'] && equipmentForm.get('brand')?.touched">
           Brand is required
@@ -56,7 +56,7 @@
           formControlName="image" 
           placeholder="Enter image URL"
           class="form-control"
-          [disabled]="isLoading"
+          
         >
       </div>
 
@@ -67,7 +67,7 @@
           formControlName="description" 
           placeholder="Enter equipment description"
           class="form-control"
-          [disabled]="isLoading"
+          
           rows="3"
         ></textarea>
       </div>
@@ -78,7 +78,7 @@
           id="status" 
           formControlName="status" 
           class="form-control"
-          [disabled]="isLoading"
+          
         >
           <option value="AVAILABLE">Available</option>
           <option value="IN_USE">In Use</option>
@@ -99,7 +99,7 @@
           type="button" 
           (click)="resetForm()" 
           class="btn-secondary"
-          [disabled]="isLoading"
+          
         >
           Cancel
         </button>
@@ -126,7 +126,7 @@
             <p><strong>Brand:</strong> {{ equipment.brand }}</p>
             <p *ngIf="equipment.description"><strong>Description:</strong> {{ equipment.description }}</p>
             <p><strong>Status:</strong> 
-              <span [class]="'status-badge ' + equipment.status.toLowerCase()">
+              <span *ngIf="equipment?.status" [class]="'status-badge ' + equipment.status.toLowerCase()">
                 {{ equipment.status.replace('_', ' ') }}
               </span>
             </p>
@@ -135,14 +135,14 @@
             <button 
               (click)="editEquipment(equipment)" 
               class="btn-edit"
-              [disabled]="isLoading"
+              
             >
               Edit
             </button>
             <button 
               (click)="deleteEquipment(equipment.id!)" 
               class="btn-delete"
-              [disabled]="isLoading"
+              
             >
               Delete
             </button>

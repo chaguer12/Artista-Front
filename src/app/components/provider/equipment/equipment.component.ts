@@ -6,6 +6,8 @@ import { FileUploadService } from '../../../services/file-upload.service';
 import { Equipment } from '../../../models/equipment';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { PhotoType } from '../../../models/enums/PhotoType';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-equipment',
@@ -20,6 +22,7 @@ export class EquipmentComponent implements OnInit {
   isEditing = false;
   currentEquipmentId: number | null = null;
   isLoading = false;
+  imageUrl :string | null = null;
   
   
   selectedFile: File | null = null;
@@ -30,14 +33,16 @@ export class EquipmentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private equipmentService: EquipmentService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private authService: AuthService
   ) {
     this.equipmentForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       type: ['', Validators.required],
       brand: ['', Validators.required],
       status: ['AVAILABLE', Validators.required],
-      description: ['']
+      description: [''],
+      image: ['']
     });
   }
 

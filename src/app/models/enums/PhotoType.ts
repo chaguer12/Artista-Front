@@ -1,0 +1,6 @@
+export enum PhotoType{
+    STUDIO = 'STUDIO',
+  BLOG_POST = 'BLOG_POST',
+  USER_PROFILE = 'USER_PROFILE',
+  EQUIPMENT = 'EQUIPMENT'
+}

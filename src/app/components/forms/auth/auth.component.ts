@@ -31,6 +31,7 @@ export class AuthComponent implements OnInit {
             (response) => {
               const token = response.token;
               const userRole = this.authService.getUserRole();
+              console.log("this is user role:" , userRole)
               if(userRole === 'ROLE_ADMIN'){
                 this.router.navigate(['/dashboard']); 
               }else if(userRole === 'ROLE_PROVIDER'){

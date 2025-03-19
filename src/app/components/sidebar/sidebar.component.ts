@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent implements OnInit {
   sidebarOpen = false;

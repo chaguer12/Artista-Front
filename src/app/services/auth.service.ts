@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
   private readonly jwtHelper = new JwtHelperService();
   private tokenSubject = new BehaviorSubject<string | null>(null);
   private refreshTokenTimeout: any;
+  
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadToken();
@@ -25,8 +27,6 @@ export class AuthService {
           if (response.token && response.refreshToken) {
             this.saveToken(response.token, response.refreshToken);
             this.startRefreshTokenTimer();
-            
-
           }
         }),
         catchError(error => {
@@ -99,7 +99,7 @@ export class AuthService {
     localStorage.removeItem('authToken');
     localStorage.removeItem('refreshToken');
     this.tokenSubject.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/log-in']);
   }
 
   getToken(): string | null {
@@ -115,12 +115,23 @@ export class AuthService {
   getUserRole(): string | null {
     const token = this.getToken();
     if (!token) return null;
-
+    
     try {
       const decodedToken = this.jwtHelper.decodeToken(token);
       return decodedToken?.role || null;
     } catch {
       return null;
+    }
+  }
+  getCurrentUser():Observable<User | null>{
+    const token = this.getToken();
+    if (!token) return of(null);
+
+    try {
+      const decodedToken = this.jwtHelper.decodeToken(token) as User;
+      return of(decodedToken);
+    } catch {
+      return of(null);
     }
   }
 }
