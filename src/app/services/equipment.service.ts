@@ -14,7 +14,9 @@ export class EquipmentService {
 
         private getHeaders() {
           const token = this.authService.getToken();
-          const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          });
           return headers;
         }
 
@@ -35,10 +37,13 @@ export class EquipmentService {
   }
 
   deleteEquipment(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`,{headers:this.getHeaders()});
   }
 
   getEquipmentByStudio(studioId: number): Observable<Equipment[]> {
     return this.http.get<Equipment[]>(`${this.apiUrl}/studio/${studioId}`);
+  }
+  associateImage(equipmentId: number, photoId: number): Observable<any> {
+    return this.http.post(this.apiUrl + "/associate-image", { equipmentId, photoId, type: 'EQUIPMENT' });
   }
 } 

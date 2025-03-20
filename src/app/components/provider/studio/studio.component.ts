@@ -8,6 +8,7 @@ import { Studio } from '../../../models/studio';
 import { Equipment } from '../../../models/equipment';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-studio',
@@ -23,6 +24,7 @@ export class StudioComponent implements OnInit {
   isEditing = false;
   currentStudioId: number | null = null;
   isLoading = false;
+  user: User | null = null;
   
   // File upload properties
   selectedFile: File | null = null;
@@ -67,26 +69,18 @@ export class StudioComponent implements OnInit {
   }
 
   uploadFile(): void {
-    if (this.selectedFile) {
-      this.uploadProgress = 0;
-      this.uploadError = null;
-
-      this.fileUploadService.upload(this.selectedFile).subscribe({
-        next: (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.uploadProgress = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            const uploadedFileUrl = event.body.fileUrl;
-            this.studioForm.patchValue({
-              image: uploadedFileUrl
-            });
-          }
-        },
-        error: (err) => {
-          this.uploadProgress = 0;
-          this.uploadError = 'Could not upload the file';
-          console.error('Upload Error:', err);
-        }
+    if (this.selectedFile && this.user?.id) {
+      if (!this.selectedFile) {
+        console.error("Aucun fichier sélectionné !");
+        return;
+      }
+    
+      const formData = new FormData();
+      formData.append("file", this.selectedFile); 
+    
+      this.fileUploadService.upload(formData).subscribe({
+        next: (response) => console.log("Upload réussi :", response),
+        error: (error) => console.error("Erreur d'upload :", error)
       });
     }
   }

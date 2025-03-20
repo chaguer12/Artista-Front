@@ -29,6 +29,7 @@ export class EquipmentComponent implements OnInit {
   previewUrl: string | null = null;
   uploadProgress: number = 0;
   uploadError: string | null = null;
+  equipmentId?: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -61,33 +62,23 @@ export class EquipmentComponent implements OnInit {
       };
       reader.readAsDataURL(file);
 
-      // Upload the file
-      this.uploadFile();
     }
   }
 
   uploadFile(): void {
-    if (this.selectedFile) {
-      this.uploadProgress = 0;
-      this.uploadError = null;
+    if (this.selectedFile && this.equipmentId) {
+      const formData = new FormData();
+      formData.append('imageFile', this.selectedFile);
+      formData.append('entityId', this.equipmentId.toString());
+      formData.append('type','EQUIPMENT');
 
-      this.fileUploadService.upload(this.selectedFile).subscribe({
-        next: (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.uploadProgress = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            // Get the uploaded file URL from the response
-            const uploadedFileUrl = event.body.fileUrl;
-            // Update the equipment form with the file URL
-            this.equipmentForm.patchValue({
-              image: uploadedFileUrl
-            });
-          }
+      this.fileUploadService.upload(formData).subscribe({
+        next: (response) => {
+          console.log('Image uploaded successfully:', response);
+          this.loadEquipment(); // Refresh list to show updated image
         },
         error: (err) => {
-          this.uploadProgress = 0;
-          this.uploadError = 'Could not upload the file';
-          console.error('Upload Error:', err);
+          console.error('Error uploading image:', err);
         }
       });
     }
@@ -111,7 +102,7 @@ export class EquipmentComponent implements OnInit {
     if (this.equipmentForm.valid) {
       const equipmentData = this.equipmentForm.value;
       this.isLoading = true;
-
+  
       if (this.isEditing && this.currentEquipmentId) {
         this.equipmentService.updateEquipment(this.currentEquipmentId, equipmentData).subscribe({
           next: () => {
@@ -126,10 +117,15 @@ export class EquipmentComponent implements OnInit {
         });
       } else {
         this.equipmentService.createEquipment(equipmentData).subscribe({
-          next: () => {
+          next: (response) => {
+            this.equipmentId = response.id; 
+            console.log("equipment id is", response.id)// Store the equipment ID
             this.loadEquipment();
             this.resetForm();
             this.isLoading = false;
+            if (this.selectedFile) {
+              this.uploadFile(); // Upload image only after equipment is created
+            }
           },
           error: (error) => {
             console.error('Error creating equipment:', error);
@@ -156,14 +152,15 @@ export class EquipmentComponent implements OnInit {
   }
 
   deleteEquipment(id: number): void {
-    if (confirm('Are you sure you want to delete this equipment?')) {
+    if (confirm('Are you sure you want to delete this equipment?: ')) {
       this.isLoading = true;
       this.equipmentService.deleteEquipment(id).subscribe({
         next: () => {
-          this.loadEquipment();
           this.isLoading = false;
+          this.loadEquipment();
         },
         error: (error) => {
+          
           console.error('Error deleting equipment:', error);
           this.isLoading = false;
         }

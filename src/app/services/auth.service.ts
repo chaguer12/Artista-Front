@@ -9,7 +9,7 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class  AuthService {
   private readonly API_URL = 'http://localhost:8082';
   private readonly jwtHelper = new JwtHelperService();
   private tokenSubject = new BehaviorSubject<string | null>(null);
@@ -133,5 +133,12 @@ export class AuthService {
     } catch {
       return of(null);
     }
+  }
+  getUserProfile(): Observable<any> {
+    const token = localStorage.getItem('jwtToken');  // Or from sessionStorage
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
+
+    return this.http.get<any>(`${this.API_URL}/auth/profile`, { headers });
   }
 }

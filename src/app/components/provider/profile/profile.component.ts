@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../models/user';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private fileUploadService: FileUploadService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {
     this.profileForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(3)]],
@@ -41,27 +43,27 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.loadUser();
-    this.authService.getCurrentUser().subscribe(user => {
-      if (user) {
-        this.user = user;
-        this.updateForm(user);
-      }
-    });
   }
 
-    loadUser(): void {
-      this.isLoading = true;
-  this.authService.getCurrentUser().subscribe(user => {
-    if (user) {
-      this.user = user;
-      this.updateForm(user);
-    }
-    this.isLoading = false;
-  });
-    }
-
-  updateForm(user: User): void {
+  loadUser():void{
+    this.isLoading = true;
+    this.authService.getUserProfile().subscribe(
+      (user:User) => {
+        if(user){
+          this.user = user;
+          this.updateForm(user);
+        }
+        this.isLoading = false;
+      },
+      error => {
+        console.error("Error loading user profile", error);
+        this.isLoading = false;
+      }
+    )
+  }
+  updateForm(user:User):void{
     this.profileForm.patchValue({
       userName: user.userName,
       email: user.email,
@@ -70,8 +72,8 @@ export class ProfileComponent implements OnInit {
       city: user.city || ''
     });
     this.previewUrl = user.profilePic || null;
-  }
 
+  }
   onSubmit(): void {
     if (this.profileForm.valid && this.user?.id) {
       this.isLoading = true;
@@ -79,9 +81,25 @@ export class ProfileComponent implements OnInit {
         ...this.user,
         ...this.profileForm.value
       };
-      // TODO: Implement user update logic
-      this.isLoading = false;
-      this.isEditing = false;
+      // Call API to save the updated profile
+      this.userService.updateUser(this.user.id,userData).subscribe({
+        next: (response) => {
+          console.log("Profile updated successfully");
+          this.isLoading = false;
+          this.isEditing = false;
+        },
+        error: (err) => {
+          console.error("Error updating profile", err);
+          this.isLoading = false;
+        }
+      });
+    }
+  }
+
+  toggleEdit(): void {
+    this.isEditing = !this.isEditing;
+    if (!this.isEditing && this.user) {
+      this.updateForm(this.user); // Reset form when switching to view mode
     }
   }
 
@@ -100,32 +118,20 @@ export class ProfileComponent implements OnInit {
 
   uploadFile(): void {
     if (this.selectedFile && this.user?.id) {
-      this.uploadProgress = 0;
-      this.uploadError = null;
-
-      this.fileUploadService.upload(this.selectedFile).subscribe({
-        next: (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.uploadProgress = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            const uploadedFileUrl = event.body.fileUrl;
-            // TODO: Implement profile picture update logic
-            this.previewUrl = uploadedFileUrl;
-          }
-        },
-        error: (err) => {
-          this.uploadProgress = 0;
-          this.uploadError = 'Could not upload the file';
-          console.error('Upload Error:', err);
-        }
+      if (!this.selectedFile) {
+        console.error("Aucun fichier sélectionné !");
+        return;
+      }
+    
+      const formData = new FormData();
+      formData.append("file", this.selectedFile); 
+    
+      this.fileUploadService.upload(formData).subscribe({
+        next: (response) => console.log("Upload réussi :", response),
+        error: (error) => console.error("Erreur d'upload :", error)
       });
     }
   }
 
-  toggleEdit(): void {
-    this.isEditing = !this.isEditing;
-    if (!this.isEditing && this.user) {
-      this.updateForm(this.user);
-    }
-  }
+  
 } 

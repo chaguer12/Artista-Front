@@ -15,15 +15,13 @@ export class FileUploadService {
             const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
             return headers;
           }
-  upload(file: File): Observable<HttpEvent<any>> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.http.post<any>(`${this.apiUrl}`, formData, {
-      reportProgress: true,
-      observe: 'events',
-      headers:this.getHeaders()
-    },);
-  }
+          upload(formData: FormData): Observable<HttpEvent<any>> {
+            return this.http.post<any>(`${this.apiUrl}`, formData, {
+              reportProgress: true,
+              observe: 'events',
+              headers: this.getHeaders()
+            });
+          }
 
   getFiles(): Observable<any> {
     return this.http.get(`${this.apiUrl}/files`);

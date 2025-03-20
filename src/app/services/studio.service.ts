@@ -7,7 +7,7 @@ import { Studio } from '../models/studio';
   providedIn: 'root'
 })
 export class StudioService {
-  private apiUrl = 'http://localhost:8080/studios';
+  private apiUrl = 'http://localhost:8082/studio';
 
   constructor(private http: HttpClient) { }
 

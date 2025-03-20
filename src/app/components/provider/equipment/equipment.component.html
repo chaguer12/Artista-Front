@@ -48,17 +48,7 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="image">Image URL</label>
-        <input 
-          type="file" 
-          id="image" 
-          formControlName="image" 
-          placeholder="Enter image URL"
-          class="form-control"
-          
-        >
-      </div>
+      
 
       <div class="form-group">
         <label for="description">Description</label>
@@ -85,6 +75,25 @@
           <option value="MAINTENANCE">Maintenance</option>
         </select>
       </div>
+      <div class="form-group">
+        <label for="image">Upload Image</label>
+        <input 
+          type="file" 
+          id="image" 
+          (change)="onFileSelected($event)" 
+          class="form-control"
+        >
+      </div>
+      
+      <button 
+        type="button" 
+        (click)="uploadFile()" 
+        class="btn-upload"
+        [disabled]="!selectedFile || !currentEquipmentId"
+      >
+        Upload Image
+      </button>
+      
 
       <div class="form-actions">
         <button 
@@ -118,7 +127,7 @@
       <div *ngIf="!isLoading && equipmentList.length > 0">
         <div class="equipment-card" *ngFor="let equipment of equipmentList">
           <div class="equipment-image">
-            <img [src]="equipment.image || 'assets/default-equipment.jpg'" [alt]="equipment.name">
+            <img [src]="equipment.image  " [alt]="equipment.name">
           </div>
           <div class="equipment-info">
             <h3>{{ equipment.name }}</h3>

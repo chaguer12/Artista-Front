@@ -5,7 +5,7 @@
         <div class="profile-cover"></div>
         <div class="profile-info">
           <div class="profile-picture">
-            <img [src]="previewUrl || 'assets/default-avatar.jpg'" alt="Profile Picture">
+            <img [src]="previewUrl " alt="Profile Picture">
             <div class="upload-overlay" *ngIf="isEditing">
               <input type="file" id="profilePic" (change)="onFileSelected($event)" accept="image/*" class="file-input">
               <label for="profilePic" class="upload-button">

@@ -12,6 +12,7 @@ import { authGuard } from './guards/auth.guard';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { EquipmentComponent } from './components/provider/equipment/equipment.component';
 import { ProfileComponent } from './components/provider/profile/profile.component';
+import { StudioComponent } from './components/provider/studio/studio.component';
 
     export const routes: Routes = [
         {path:'',component:HomeComponent},
@@ -25,6 +26,7 @@ import { ProfileComponent } from './components/provider/profile/profile.componen
         {path: 'profile', component:ProfileComponent},
         {path: "dashboard", component:DashboardComponent, canActivate:[authGuard],data:{role:['ROLE_ADMIN']}},
         {path: "equipment", component:EquipmentComponent, canActivate:[authGuard],data:{role:['ROLE_PROVIDER']}},
+        {path: "studio", component:StudioComponent, canActivate:[authGuard],data:{role:['ROLE_PROVIDER']}},
         { path: 'unauthorized', component: UnauthorizedComponent },
         { path: '**', redirectTo: 'unauthorized' }
     ];
