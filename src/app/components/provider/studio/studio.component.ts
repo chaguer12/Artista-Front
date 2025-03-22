@@ -9,6 +9,7 @@ import { Equipment } from '../../../models/equipment';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { User } from '../../../models/user';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-studio',
@@ -36,18 +37,25 @@ export class StudioComponent implements OnInit {
     private fb: FormBuilder,
     private studioService: StudioService,
     private equipmentService: EquipmentService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private authService: AuthService
   ) {
     this.studioForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      location: ['', Validators.required],
+      city: ['', Validators.required],
       description: [''],
-      hourlyRate: [0, [Validators.required, Validators.min(0)]],
-      availability: ['AVAILABLE', Validators.required]
+      hourRate: [0, [Validators.required, Validators.min(0)]],
+      address:['',Validators.required],
+      email:['',Validators.email],
+      phone:['',Validators.required]
     });
   }
 
   ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(user =>{
+      this.user = user;
+      console.log("hello",user);
+    });
     this.loadStudios();
     this.loadEquipment();
   }
@@ -56,14 +64,13 @@ export class StudioComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      // Preview the image
+      // chouf l'image flform
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.previewUrl = e.target.result;
       };
       reader.readAsDataURL(file);
 
-      // Upload the file
       this.uploadFile();
     }
   }

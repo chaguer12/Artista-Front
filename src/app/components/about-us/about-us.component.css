@@ -223,14 +223,14 @@
   }
   .team-image {
     background-image: url("assets/1.jpg");
-    width: 100%; /* L'image occupe toute la largeur du container */
-    height: 200px; /* Tu peux ajuster la hauteur en fonction de ton design */
-    background-size: cover; /* Cela garantit que l'image couvre toute la zone sans déformation */
-    background-position: center; /* Centrer l'image pour qu'elle soit bien positionnée */
-    border-radius: 8px; /* Ajoute des coins arrondis pour un effet plus moderne */
-    overflow: hidden; /* Cache les parties de l'image qui dépassent du cadre */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère autour de l'image */
-    transition: transform 0.3s ease; /* Ajoute une transition douce quand l'image est survolée */
+    width: 100%; 
+    height: 200px;
+    background-size: cover; 
+    background-position: center; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease; 
   }
   
   .team-image:hover {

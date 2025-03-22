@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
@@ -70,6 +70,10 @@ export class  AuthService {
       );
   }
 
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    return token ? this.jwtHelper.isTokenExpired(token) : true;
+  }
   private startRefreshTokenTimer(): void {
     const token = this.tokenSubject.value;
     if (!token) return;
@@ -134,11 +138,25 @@ export class  AuthService {
       return of(null);
     }
   }
-  getUserProfile(): Observable<any> {
-    const token = localStorage.getItem('jwtToken');  // Or from sessionStorage
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
-
-    return this.http.get<any>(`${this.API_URL}/auth/profile`, { headers });
+  getUserProfile(): Observable<User> {
+    // Check if token is expired
+    if (this.isTokenExpired()) {
+      // Refresh the token first, then make the request
+      return this.refreshToken().pipe(
+        switchMap(() => {
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.getToken()}`
+          });
+          return this.http.get<User>('http://localhost:8082/auth/profile', { headers });
+        })
+      );
+    } else {
+      // Token is valid, proceed with request
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.getToken()}`
+      });
+      return this.http.get<User>('http://localhost:8082/auth/profile', { headers });
+    }
   }
+  
 }

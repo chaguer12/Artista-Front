@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
         ...this.user,
         ...this.profileForm.value
       };
-      // Call API to save the updated profile
+      
       this.userService.updateUser(this.user.id,userData).subscribe({
         next: (response) => {
           console.log("Profile updated successfully");

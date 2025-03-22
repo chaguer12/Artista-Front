@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Studio } from '../models/studio';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,19 @@ import { Studio } from '../models/studio';
 export class StudioService {
   private apiUrl = 'http://localhost:8082/studio';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private authService:AuthService) { }
+   getHeaders() {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return headers;
+  }
 
   getAllStudios(): Observable<Studio[]> {
-    return this.http.get<Studio[]>(this.apiUrl);
+    const headers = this.getHeaders();
+    return this.http.get<Studio[]>(this.apiUrl,{headers});
   }
 
   getStudioById(id: number): Observable<Studio> {
@@ -20,7 +30,9 @@ export class StudioService {
   }
 
   createStudio(studio: Studio): Observable<Studio> {
-    return this.http.post<Studio>(this.apiUrl, studio);
+    const headers = this.getHeaders();
+    console.log("Headers being sent:", headers);
+    return this.http.post<Studio>(this.apiUrl + "/add", studio,{headers});
   }
 
   updateStudio(id: number, studio: Studio): Observable<Studio> {
