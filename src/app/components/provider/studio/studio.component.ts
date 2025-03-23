@@ -26,6 +26,7 @@ export class StudioComponent implements OnInit {
   currentStudioId: number | null = null;
   isLoading = false;
   user: User | null = null;
+  providerId: number | null = null;
   
   // File upload properties
   selectedFile: File | null = null;
@@ -38,7 +39,8 @@ export class StudioComponent implements OnInit {
     private studioService: StudioService,
     private equipmentService: EquipmentService,
     private fileUploadService: FileUploadService,
-    private authService: AuthService
+    private authService: AuthService,
+    
   ) {
     this.studioForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -52,7 +54,7 @@ export class StudioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user =>{
+    this.authService.getUserProfile().subscribe(user =>{
       this.user = user;
       console.log("hello",user);
     });
@@ -118,7 +120,10 @@ export class StudioComponent implements OnInit {
   onSubmit(): void {
     if (this.studioForm.valid) {
       const studioData = this.studioForm.value;
+      
+      studioData.provider_id = this.user?.id;
       this.isLoading = true;
+      console.log("id",this.user?.id);
 
       if (this.isEditing && this.currentStudioId) {
         this.studioService.updateStudio(this.currentStudioId, studioData).subscribe({
@@ -134,6 +139,7 @@ export class StudioComponent implements OnInit {
         });
       } else {
         this.studioService.createStudio(studioData).subscribe({
+
           next: () => {
             this.loadStudios();
             this.resetForm();

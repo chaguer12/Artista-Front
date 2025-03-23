@@ -60,9 +60,8 @@
 
       <div class="form-group">
         <label for="hourRate">Hourly Rate (€)*</label>
-        <input type="number" id="hourRate" formControlName="hourRate" class="form-control"
-               [class.invalid]="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
-        <div class="error-message" *ngIf="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
+        <input type="number" id="hourRate" formControlName="hourRate" class="form-control" [class.invalid]="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
+                <div class="error-message" *ngIf="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
           Hourly rate is required and must be positive
         </div>
       </div>
