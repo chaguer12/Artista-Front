@@ -61,7 +61,7 @@ export class ClientFormComponent implements OnInit {
           const { email, password } = this.signupForm.value;
           this.authService.login(email, password).subscribe({
             next: () => {
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/']);
             },
             error: (err) => {
               this.errorMessage = 'Account created but login failed. Please try logging in manually.';

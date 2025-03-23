@@ -36,6 +36,9 @@ export class AuthComponent implements OnInit {
                 this.router.navigate(['/dashboard']); 
               }else if(userRole === 'ROLE_PROVIDER'){
                 this.router.navigate(['/equipment'])
+              }else if (userRole === 'ROLE_CLIENT'){
+                //route client
+                this.router.navigate(['/']);
               }
             },
             (error) => {

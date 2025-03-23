@@ -270,6 +270,48 @@
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
+  .profile-picture {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .photo-upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .upload-button {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  .btn-upload {
+    background-color: #28a745;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   
   /* Progress bar styles */
   .progress-bar {
@@ -306,4 +348,62 @@
       margin-right: 0;
       margin-bottom: 1rem;
     }
+  }
+  
+  /* Styles pour la modale */
+  .modal {
+    display: none; /* Masquer par défaut */
+    position: fixed; /* Rester en place */
+    z-index: 1; /* Au-dessus des autres éléments */
+    left: 0;
+    top: 0;
+    width: 100%; /* Plein écran */
+    height: 100%; /* Plein écran */
+    overflow: auto; /* Activer le défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.7); /* Couleur de fond avec transparence */
+  }
+  
+  .modal-content {
+    background-color: #1a1a1a; /* Couleur de fond de la modale */
+    margin: 10% auto; /* 10% du haut et centré */
+    padding: 20px;
+    border-radius: 10px; /* Coins arrondis */
+    border: 3px solid #8a2be2; /* Bordure colorée */
+    width: 80%; /* Largeur de la modale */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombre */
+  }
+  
+  .close {
+    color: #ff4500; /* Couleur de la croix de fermeture */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #fff; /* Couleur au survol */
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  h5 {
+    color: #ff4500; /* Couleur du titre */
+    margin-bottom: 1rem; /* Espacement en bas */
+  }
+  
+  .btn-primary {
+    background-color: #ff4500; /* Couleur du bouton */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #ff6347; /* Couleur au survol */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3); /* Ombre au survol */
   } 

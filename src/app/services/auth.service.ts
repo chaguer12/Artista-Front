@@ -103,7 +103,7 @@ export class  AuthService {
     localStorage.removeItem('authToken');
     localStorage.removeItem('refreshToken');
     this.tokenSubject.next(null);
-    this.router.navigate(['/log-in']);
+    this.router.navigate(['/']);
   }
 
   getToken(): string | null {

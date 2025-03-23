@@ -28,6 +28,7 @@ export class StudioComponent implements OnInit {
   user: User | null = null;
   providerId: number | null = null;
   
+  
   // File upload properties
   selectedFile: File | null = null;
   previewUrl: string | null = null;
@@ -72,7 +73,6 @@ export class StudioComponent implements OnInit {
         this.previewUrl = e.target.result;
       };
       reader.readAsDataURL(file);
-
       this.uploadFile();
     }
   }

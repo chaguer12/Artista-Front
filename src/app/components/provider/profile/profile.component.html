@@ -4,15 +4,8 @@
       <div class="profile-header">
         <div class="profile-cover"></div>
         <div class="profile-info">
-          <div class="profile-picture">
-            <img [src]="previewUrl " alt="Profile Picture">
-            <div class="upload-overlay" *ngIf="isEditing">
-              <input type="file" id="profilePic" (change)="onFileSelected($event)" accept="image/*" class="file-input">
-              <label for="profilePic" class="upload-button">
-                <i class="fas fa-camera"></i>
-                Change Photo
-              </label>
-            </div>
+          <div class="profile-picture" (click)="openModal()">
+            <img [src]="previewUrl" alt="Profile Picture">
           </div>
           <div class="profile-details">
             <h1>{{ user?.fullName || 'Loading...' }}</h1>
@@ -116,3 +109,20 @@
       </div>
     </div>
   </div> 
+  <!-- profile-modal.component.html -->
+<div id="customModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h5>Modifier le profil</h5>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="profileImage" class="form-label">Photo de profil</label>
+        <input type="file" id="profileImage" class="form-control" (change)="onFileSelected($event)">
+      </div>
+      <div *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="Aperçu de l'image" class="img-thumbnail mt-2">
+      </div>
+      <button type="button" class="btn btn-primary mt-3" (click)="uploadPhoto()">Enregistrer</button>
+    </form>
+  </div>
+</div>

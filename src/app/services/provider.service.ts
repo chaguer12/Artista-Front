@@ -35,4 +35,7 @@ export class ProviderService {
       deleteUser(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`,{headers:this.getHeaders()});
       }
+      uploadPhoto(formData:FormData): Observable<any> { 
+        return this.http.patch(`${this.apiUrl}/provider-upload`, formData, { headers: this.getHeaders() });
+      }
 }
