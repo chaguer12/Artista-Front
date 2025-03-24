@@ -8,6 +8,8 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { PhotoType } from '../../../models/enums/PhotoType';
 import { AuthService } from '../../../services/auth.service';
+import { StudioService } from '../../../services/studio.service';
+import { Studio } from '../../../models/studio';
 
 @Component({
   selector: 'app-equipment',
@@ -18,6 +20,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class EquipmentComponent implements OnInit {
   equipmentList: Equipment[] = [];
+  studioList: Studio[] = [];
   equipmentForm: FormGroup;
   isEditing = false;
   currentEquipmentId: number | null = null;
@@ -35,7 +38,8 @@ export class EquipmentComponent implements OnInit {
     private fb: FormBuilder,
     private equipmentService: EquipmentService,
     private fileUploadService: FileUploadService,
-    private authService: AuthService
+    private authService: AuthService,
+    private studioService: StudioService
   ) {
     this.equipmentForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -43,12 +47,29 @@ export class EquipmentComponent implements OnInit {
       brand: ['', Validators.required],
       status: ['AVAILABLE', Validators.required],
       description: [''],
-      image: ['']
+      image: [''],
+      studioId: [null]
     });
   }
 
   ngOnInit(): void {
     this.loadEquipment();
+    this.loadStudios();
+  }
+
+  loadStudios(): void {
+    this.authService.getUserProfile().subscribe(user => {
+      if (user?.id) {
+        this.studioService.getStudiosByOwner(user.id).subscribe({
+          next: (data) => {
+            this.studioList = data;
+          },
+          error: (error) => {
+            console.error('Error fetching studios:', error);
+          }
+        });
+      }
+    });
   }
 
   onFileSelected(event: any): void {
@@ -61,7 +82,6 @@ export class EquipmentComponent implements OnInit {
         this.previewUrl = e.target.result;
       };
       reader.readAsDataURL(file);
-
     }
   }
 
@@ -75,6 +95,7 @@ export class EquipmentComponent implements OnInit {
       this.fileUploadService.upload(formData).subscribe({
         next: (response) => {
           console.log('Image uploaded successfully:', response);
+          this.closeModal();
           this.loadEquipment(); // Refresh list to show updated image
         },
         error: (err) => {
@@ -84,17 +105,58 @@ export class EquipmentComponent implements OnInit {
     }
   }
 
+  openModal(equipment: Equipment): void {
+    this.equipmentId = equipment.id;
+    this.previewUrl = equipment.image || null;
+    
+    const modal = document.getElementById('photoModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  closeModal(): void {
+    const modal = document.getElementById('photoModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+    // Réinitialiser les variables de fichier
+    this.selectedFile = null;
+    if (!this.isEditing) {
+      this.previewUrl = null;
+    }
+  }
+
   loadEquipment(): void {
     this.isLoading = true;
     this.equipmentService.getAllEquipment().subscribe({
       next: (data) => {
-        this.equipmentList = data;
+        this.enrichEquipmentWithStudioNames(data);
         this.isLoading = false;
       },
       error: (error) => {
         console.error('Error fetching equipment:', error);
         this.isLoading = false;
       }
+    });
+  }
+
+  enrichEquipmentWithStudioNames(equipments: Equipment[]): void {
+    const studioMap = new Map<number, string>();
+    this.studioList.forEach(studio => {
+      if (studio.id) {
+        studioMap.set(studio.id, studio.name);
+      }
+    });
+
+    this.equipmentList = equipments.map(equipment => {
+      if (equipment.studioId && studioMap.has(equipment.studioId)) {
+        return {
+          ...equipment,
+          studioName: studioMap.get(equipment.studioId) || ''
+        };
+      }
+      return equipment;
     });
   }
 
@@ -105,10 +167,19 @@ export class EquipmentComponent implements OnInit {
   
       if (this.isEditing && this.currentEquipmentId) {
         this.equipmentService.updateEquipment(this.currentEquipmentId, equipmentData).subscribe({
-          next: () => {
-            this.loadEquipment();
-            this.resetForm();
-            this.isLoading = false;
+          next: (response) => {
+            if (equipmentData.studioId && this.currentEquipmentId) {
+              this.associateEquipmentWithStudio(this.currentEquipmentId, equipmentData.studioId);
+            }
+            
+            if (this.selectedFile) {
+              this.equipmentId = this.currentEquipmentId;
+              this.uploadFile();
+            } else {
+              this.loadEquipment();
+              this.resetForm();
+              this.isLoading = false;
+            }
           },
           error: (error) => {
             console.error('Error updating equipment:', error);
@@ -119,12 +190,18 @@ export class EquipmentComponent implements OnInit {
         this.equipmentService.createEquipment(equipmentData).subscribe({
           next: (response) => {
             this.equipmentId = response.id; 
-            console.log("equipment id is", response.id)// Store the equipment ID
-            this.loadEquipment();
-            this.resetForm();
-            this.isLoading = false;
+            console.log("equipment id is", response.id);
+            
+            if (equipmentData.studioId && this.equipmentId) {
+              this.associateEquipmentWithStudio(this.equipmentId, equipmentData.studioId);
+            }
+            
             if (this.selectedFile) {
-              this.uploadFile(); // Upload image only after equipment is created
+              this.uploadFile();
+            } else {
+              this.loadEquipment();
+              this.resetForm();
+              this.isLoading = false;
             }
           },
           error: (error) => {
@@ -136,16 +213,35 @@ export class EquipmentComponent implements OnInit {
     }
   }
 
+  associateEquipmentWithStudio(equipmentId: number, studioId: any): void {
+    const studioIdNum = typeof studioId === 'string' ? parseInt(studioId, 10) : studioId;
+    
+    if (studioIdNum !== null && studioIdNum !== undefined && equipmentId !== null && equipmentId !== undefined) {
+      this.studioService.addEquipmentToStudio(studioIdNum, equipmentId).subscribe({
+        next: () => {
+          console.log(`Equipment ${equipmentId} successfully associated with studio ${studioIdNum}`);
+        },
+        error: (error) => {
+          console.error(`Error associating equipment with studio:`, error);
+        }
+      });
+    } else {
+      console.error('Cannot associate equipment with studio: Invalid IDs');
+    }
+  }
+
   editEquipment(equipment: Equipment): void {
     if (equipment.id) {
       this.isEditing = true;
       this.currentEquipmentId = equipment.id;
+      this.equipmentId = equipment.id;
       this.equipmentForm.patchValue({
         name: equipment.name,
         type: equipment.type,
         brand: equipment.brand,
         status: equipment.status,
-        description: equipment.description || ''
+        description: equipment.description || '',
+        studioId: equipment.studioId || null
       });
       this.previewUrl = equipment.image || null;
     }
@@ -176,7 +272,8 @@ export class EquipmentComponent implements OnInit {
     this.uploadProgress = 0;
     this.uploadError = null;
     this.equipmentForm.reset({
-      status: 'AVAILABLE'
+      status: 'AVAILABLE',
+      studioId: null
     });
   }
 }

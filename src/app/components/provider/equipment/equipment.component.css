@@ -135,6 +135,8 @@ label {
   border-radius: 8px;
   overflow: hidden;
   border: 2px solid #8a2be2;
+  cursor: pointer;
+  position: relative;
 }
 
 .equipment-image img {
@@ -146,6 +148,19 @@ label {
 
 .equipment-card:hover .equipment-image img {
   transform: scale(1.1);
+}
+
+.equipment-image:hover::after {
+  content: "Click to upload image";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .equipment-info {
@@ -275,4 +290,115 @@ h2 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   text-align: center;
+}
+
+/* Image preview styles */
+.image-preview {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #8a2be2;
+  background-color: #222;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+/* Studio selector styles */
+select.form-control {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 0.75rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+select.form-control option {
+  background-color: #222;
+  color: #fff;
+  padding: 0.5rem;
+}
+
+select.form-control:focus {
+  outline: none;
+  border-color: #ff4500;
+  box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.1);
+}
+
+/* Studio badge */
+.studio-badge {
+  display: inline-block;
+  background-color: #8a2be2;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+/* Styles pour la modale */
+.modal {
+  display: none; /* Masquer par défaut */
+  position: fixed; /* Rester en place */
+  z-index: 1000; /* Au-dessus des autres éléments */
+  left: 0;
+  top: 0;
+  width: 100%; /* Plein écran */
+  height: 100%; /* Plein écran */
+  overflow: auto; /* Activer le défilement si nécessaire */
+  background-color: rgba(0, 0, 0, 0.7); /* Couleur de fond avec transparence */
+}
+
+.modal-content {
+  background-color: #1a1a1a; /* Couleur de fond de la modale */
+  margin: 10% auto; /* 10% du haut et centré */
+  padding: 20px;
+  border-radius: 10px; /* Coins arrondis */
+  border: 3px solid #8a2be2; /* Bordure colorée */
+  width: 80%; /* Largeur de la modale */
+  max-width: 500px; /* Largeur maximale */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombre */
+}
+
+.close {
+  color: #ff4500; /* Couleur de la croix de fermeture */
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #fff; /* Couleur au survol */
+  text-decoration: none;
+}
+
+h5 {
+  color: #ff4500; /* Couleur du titre */
+  margin-bottom: 1rem; /* Espacement en bas */
+  font-size: 1.5rem;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.info-message {
+  background-color: rgba(138, 43, 226, 0.2);
+  border-left: 4px solid #8a2be2;
+  padding: 12px;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #fff;
 }

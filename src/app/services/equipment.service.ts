@@ -43,7 +43,7 @@ export class EquipmentService {
   getEquipmentByStudio(studioId: number): Observable<Equipment[]> {
     return this.http.get<Equipment[]>(`${this.apiUrl}/studio/${studioId}`);
   }
-  associateImage(equipmentId: number, photoId: number): Observable<any> {
-    return this.http.post(this.apiUrl + "/associate-image", { equipmentId, photoId, type: 'EQUIPMENT' });
+  uploadPhoto(formData:FormData): Observable<any> { 
+    return this.http.patch(`${this.apiUrl}/equipmentm-upload`, formData, { headers: this.getHeaders() });
   }
 } 

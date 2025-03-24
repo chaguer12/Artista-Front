@@ -3,6 +3,11 @@
     <div class="equipment-form-section">
       <h2>{{ isEditing ? 'Edit Equipment' : 'Add New Equipment' }}</h2>
       <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="equipment-form">
+        <!-- Note informative pour les photos -->
+        <div *ngIf="!isEditing" class="info-message">
+          You can add a photo after creating the equipment by clicking on its image
+        </div>
+        
         <div class="form-group">
           <label for="name">Name</label>
           <input 
@@ -75,25 +80,19 @@
             <option value="MAINTENANCE">Maintenance</option>
           </select>
         </div>
+
+        <!-- Sélecteur de studio -->
         <div class="form-group">
-          <label for="image">Upload Image</label>
-          <input 
-            type="file" 
-            id="image" 
-            (change)="onFileSelected($event)" 
+          <label for="studioId">Assign to Studio</label>
+          <select 
+            id="studioId" 
+            formControlName="studioId" 
             class="form-control"
           >
+            <option [value]="null">-- Select a studio --</option>
+            <option *ngFor="let studio of studioList" [value]="studio.id">{{ studio.name }}</option>
+          </select>
         </div>
-        
-        <button 
-          type="button" 
-          (click)="uploadFile()" 
-          class="btn-upload"
-          [disabled]="!selectedFile || !currentEquipmentId"
-        >
-          Upload Image
-        </button>
-        
 
         <div class="form-actions">
           <button 
@@ -126,8 +125,8 @@
 
         <div *ngIf="!isLoading && equipmentList.length > 0">
           <div class="equipment-card" *ngFor="let equipment of equipmentList">
-            <div class="equipment-image">
-              <img [src]="equipment.image  " [alt]="equipment.name">
+            <div class="equipment-image" (click)="openModal(equipment)">
+              <img [src]="equipment.image || 'assets/images/equipment-default.jpg'" [alt]="equipment.name">
             </div>
             <div class="equipment-info">
               <h3>{{ equipment.name }}</h3>
@@ -139,6 +138,7 @@
                   {{ equipment.status.replace('_', ' ') }}
                 </span>
               </p>
+              <p *ngIf="equipment.studioName"><strong>Studio:</strong> {{ equipment.studioName }}</p>
             </div>
             <div class="equipment-actions">
               <button 
@@ -165,3 +165,21 @@
       </div>
     </div>
   </div>
+
+<!-- Modal pour l'upload d'image -->
+<div id="photoModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h5>{{ isEditing ? 'Update Equipment Photo' : 'Add Equipment Photo' }}</h5>
+    <form (ngSubmit)="uploadFile()">
+      <div class="form-group">
+        <label for="equipmentImage">Equipment Photo</label>
+        <input type="file" id="equipmentImage" class="form-control" (change)="onFileSelected($event)">
+      </div>
+      <div *ngIf="previewUrl" class="image-preview">
+        <img [src]="previewUrl" alt="Preview" class="preview-image">
+      </div>
+      <button type="submit" class="btn-primary mt-3" [disabled]="!selectedFile">Upload Photo</button>
+    </form>
+  </div>
+</div>
