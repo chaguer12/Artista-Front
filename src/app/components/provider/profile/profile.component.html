@@ -114,7 +114,7 @@
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
     <h5>Modifier le profil</h5>
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="profileImage" class="form-label">Photo de profil</label>
         <input type="file" id="profileImage" class="form-control" (change)="onFileSelected($event)">
@@ -122,7 +122,7 @@
       <div *ngIf="previewUrl">
         <img [src]="previewUrl" alt="Aperçu de l'image" class="img-thumbnail mt-2">
       </div>
-      <button type="button" class="btn btn-primary mt-3" (click)="uploadPhoto()">Enregistrer</button>
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="!profileForm.valid">Enregistrer</button>
     </form>
   </div>
 </div>

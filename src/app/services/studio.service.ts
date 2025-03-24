@@ -40,11 +40,11 @@ export class StudioService {
   }
 
   deleteStudio(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`,{headers: this.getHeaders()});
   }
 
   getStudiosByOwner(ownerId: number): Observable<Studio[]> {
-    return this.http.get<Studio[]>(`${this.apiUrl}/owner/${ownerId}`);
+    return this.http.get<Studio[]>(`${this.apiUrl}/by-provider/${ownerId}`,{headers: this.getHeaders()});
   }
 
   addEquipmentToStudio(studioId: number, equipmentId: number): Observable<Studio> {

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FileUploadService } from '../../../services/file-upload.service';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../models/user';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UserService } from '../../../services/user.service';
-import { ProviderService } from '../../../services/provider.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -29,10 +29,9 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private fileUploadService: FileUploadService,
     private authService: AuthService,
-    private userService: UserService,
-    private providerService: ProviderService,
-    private http: HttpClient
+    private userService: UserService
   ) {
     this.profileForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(3)]],
@@ -112,23 +111,24 @@ export class ProfileComponent implements OnInit {
         this.previewUrl = e.target.result;
       };
       reader.readAsDataURL(file);
+      this.uploadFile();
     }
   }
 
-  uploadPhoto(): void {
-    if (this.selectedFile && this.user?.email) {
+  uploadFile(): void {
+    if (this.selectedFile && this.user?.id) {
+      if (!this.selectedFile) {
+        console.error("Aucun fichier sélectionné !");
+        return;
+      }
+    
       const formData = new FormData();
-      formData.append("file", this.selectedFile);
-      formData.append("email", this.user.email);
-
-      this.providerService.uploadPhoto(formData).subscribe({
-        next: (response: any) => {
-          console.log("Upload successful:", response);
-          this.previewUrl = response;
-        },
-        error: (error) => {
-          console.error("Error uploading photo:", error);
-        }
+      formData.append("file", this.selectedFile); 
+      formData.append("email",this.user.email);
+    
+      this.fileUploadService.upload(formData).subscribe({
+        next: (response) => console.log("Upload réussi :", response),
+        error: (error) => console.error("Erreur d'upload :", error)
       });
     }
   }

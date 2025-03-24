@@ -1,9 +1,9 @@
 <app-sidebar></app-sidebar>
 
-<div class="content">
-  <div class="form-section">
+<div class="equipment-container">
+  <div class="equipment-form-section">
     <h2>{{ isEditing ? 'Edit Studio' : 'Add New Studio' }}</h2>
-    <form [formGroup]="studioForm" (ngSubmit)="onSubmit()" class="studio-form">
+    <form [formGroup]="studioForm" (ngSubmit)="onSubmit()" class="equipment-form">
       
       <div class="form-group">
         <label for="name">Studio Name*</label>
@@ -60,12 +60,12 @@
 
       <div class="form-group">
         <label for="hourRate">Hourly Rate (€)*</label>
-        <input type="number" id="hourRate" formControlName="hourRate" class="form-control" [class.invalid]="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
-                <div class="error-message" *ngIf="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
+        <input type="number" id="hourRate" formControlName="hourRate" class="form-control" 
+               [class.invalid]="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
+        <div class="error-message" *ngIf="studioForm.get('hourRate')?.invalid && studioForm.get('hourRate')?.touched">
           Hourly rate is required and must be positive
         </div>
       </div>
-      
 
       <div class="form-actions">
         <button type="submit" [disabled]="!studioForm.valid || isLoading" class="btn-primary">
@@ -75,4 +75,39 @@
       </div>
     </form>
   </div>
+
+  <div class="equipment-list-section">
+    <h2>My Studios</h2>
+    <div class="equipment-list">
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading studios...</p>
+      </div>
+
+      <div *ngIf="!isLoading && studioList.length > 0">
+        <div class="equipment-card" *ngFor="let studio of studioList">
+          <div class="equipment-image">
+            <img src="assets/images/studio-default.jpg" alt="{{ studio.name }}">
+          </div>
+          <div class="equipment-info">
+            <h3>{{ studio.name }}</h3>
+            <p><strong>City:</strong> {{ studio.city }}</p>
+            <p><strong>Address:</strong> {{ studio.address }}</p>
+            <p><strong>Email:</strong> {{ studio.email }}</p>
+            <p><strong>Hourly Rate:</strong> {{ studio.hourlyRate }} €</p>
+            <p *ngIf="studio.description"><strong>Description:</strong> {{ studio.description }}</p>
+          </div>
+          <div class="equipment-actions">
+            <button (click)="editStudio(studio)" class="btn-edit">Edit</button>
+            <button (click)="deleteStudio(studio.id!)" class="btn-delete">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoading && studioList.length === 0" class="no-equipment">
+        No studios found. Add some studios using the form.
+      </div>
+    </div>
+  </div>
 </div>
+

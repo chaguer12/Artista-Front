@@ -57,9 +57,12 @@ export class StudioComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUserProfile().subscribe(user =>{
       this.user = user;
-      console.log("hello",user);
+      console.log("hello",user.id);
+      if (this.user?.id) {
+        this.loadStudios();  
+      }
     });
-    this.loadStudios();
+    
     this.loadEquipment();
   }
 
@@ -95,8 +98,12 @@ export class StudioComponent implements OnInit {
   }
 
   loadStudios(): void {
+    if (this.user?.id === undefined) {
+      console.error("User ID is undefined. Cannot fetch studios.",this.user);
+      return;
+    }
     this.isLoading = true;
-    this.studioService.getAllStudios().subscribe({
+    this.studioService.getStudiosByOwner(this.user?.id).subscribe({
       next: (data) => {
         this.studioList = data;
         this.isLoading = false;
@@ -160,10 +167,11 @@ export class StudioComponent implements OnInit {
       this.currentStudioId = studio.id;
       this.studioForm.patchValue({
         name: studio.name,
-        location: studio.location,
+        location: studio.address,
         description: studio.description || '',
         hourlyRate: studio.hourlyRate || 0,
-        availability: studio.availability
+        availability: studio.availability,
+        email: studio.email
       });
       this.previewUrl = studio.image || null;
     }
