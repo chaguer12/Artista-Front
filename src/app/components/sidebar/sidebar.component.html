@@ -21,7 +21,7 @@
         <a *ngIf="!isLoggedIn" href="/owner" class="nav-item" >Providers</a>
         <a *ngIf="!isLoggedIn"  href="/register" class="nav-item" >Register</a>
         <a *ngIf="userRole === 'ROLE_ADMIN'" href="/dashboard" class="nav-item" >Dashboard</a>
-        <a *ngIf="userRole === 'ROLE_PROVIDER' || userRole=== 'ROLE_CLIENT'" href="" class="nav-item" >Blog</a>
+        <a *ngIf="userRole === 'ROLE_PROVIDER' || userRole=== 'ROLE_CLIENT'" href="/blog" class="nav-item" routerLinkActive="active">Blog</a>
         <a *ngIf="userRole === 'ROLE_PROVIDER' || userRole=== 'ROLE_CLIENT'" href="" class="nav-item" >Booking</a>
         <a *ngIf="userRole === 'ROLE_PROVIDER'" href="/studio" class="nav-item" >studio</a>
         <a *ngIf="userRole === 'ROLE_PROVIDER'" href="equipment" class="nav-item" >equipment</a>

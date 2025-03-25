@@ -1,0 +1,62 @@
+<div class="blog-container">
+  <app-sidebar></app-sidebar>
+  
+  <div class="main-content">
+    <div class="header">
+      <h1>Blog</h1>
+      <button *ngIf="currentUser" class="btn btn-primary" routerLink="/blog/create">
+        Nouveau Post
+      </button>
+    </div>
+
+    <!-- Liste des posts -->
+    <div class="posts-list">
+      <div *ngIf="isLoading" class="loading">
+        Chargement...
+      </div>
+
+      <div *ngIf="!isLoading && posts.length === 0" class="no-posts">
+        Aucun post pour le moment. Soyez le premier à publier !
+      </div>
+
+      <div *ngFor="let post of posts" class="post-card">
+        <div class="post-header">
+          <div class="author-info">
+            <img [src]="post.auteur?.profilePic || 'assets/default-avatar.png'" alt="Avatar" class="avatar">
+            <span class="author-name">{{ post.auteur?.fullName }}</span>
+            <span class="post-date">{{ post.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div *ngIf="currentUser?.id === post.auteur?.id" class="post-actions">
+            <button class="btn btn-danger" (click)="deletePost(post.id!)">
+              Supprimer
+            </button>
+          </div>
+        </div>
+
+        <div class="post-content">
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.content }}</p>
+          <div *ngIf="post.image" class="post-image">
+            <img [src]="post.image" alt="Post image">
+          </div>
+        </div>
+
+        <div class="post-footer">
+          <div class="votes">
+            <button class="btn btn-vote" (click)="upvotePost(post)">
+              <i class="fas fa-arrow-up"></i>
+              {{ post.likes }}
+            </button>
+            <button class="btn btn-vote" (click)="downvotePost(post)">
+              <i class="fas fa-arrow-down"></i>
+            </button>
+          </div>
+          <div class="comments">
+            <i class="fas fa-comments"></i>
+            {{ post.comments?.length || 0 }} commentaires
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -13,6 +13,8 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { EquipmentComponent } from './components/provider/equipment/equipment.component';
 import { ProfileComponent } from './components/provider/profile/profile.component';
 import { StudioComponent } from './components/provider/studio/studio.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { BlogFormComponent } from './components/forms/blog-form/blog-form.component';
 
     export const routes: Routes = [
         {path:'',component:HomeComponent},
@@ -27,6 +29,8 @@ import { StudioComponent } from './components/provider/studio/studio.component';
         {path: "dashboard", component:DashboardComponent, canActivate:[authGuard],data:{role:['ROLE_ADMIN']}},
         {path: "equipment", component:EquipmentComponent, canActivate:[authGuard],data:{role:['ROLE_PROVIDER']}},
         {path: "studio", component:StudioComponent, canActivate:[authGuard],data:{role:['ROLE_PROVIDER']}},
+        {path: 'blog', component: BlogComponent},
+        {path: 'blog/create', component: BlogFormComponent},
         { path: 'unauthorized', component: UnauthorizedComponent },
         { path: '**', redirectTo: 'unauthorized' }
     ];
