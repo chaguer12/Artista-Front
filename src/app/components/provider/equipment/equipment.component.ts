@@ -76,7 +76,6 @@ export class EquipmentComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      // Preview the image
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.previewUrl = e.target.result;
