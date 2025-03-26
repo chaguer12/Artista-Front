@@ -35,7 +35,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
-          // If 401 Unauthorized, attempt to refresh the token
+          
           return this.handle401Error(req, next);
         } else {
           return throwError(() => error);
@@ -65,7 +65,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         }),
         catchError((err) => {
           this.isRefreshing = false;
-          this.authService.logout(); // Logout user if refresh fails
+          this.authService.logout(); 
           return throwError(() => err);
         })
       );

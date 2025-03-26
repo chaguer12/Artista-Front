@@ -43,11 +43,11 @@
 
         <div class="post-footer">
           <div class="votes">
-            <button class="btn btn-vote" (click)="upvotePost(post)">
+            <button class="btn btn-vote" (click)="onVote(post.id!, true)">
               <i class="fas fa-arrow-up"></i>
               {{ post.likes }}
             </button>
-            <button class="btn btn-vote" (click)="downvotePost(post)">
+            <button class="btn btn-vote" (click)="onVote(post.id!, false)">
               <i class="fas fa-arrow-down"></i>
             </button>
           </div>

@@ -12,7 +12,9 @@ export class FileUploadService {
   constructor(private http: HttpClient,private authService:AuthService) { }
   private getHeaders() {
             const token = this.authService.getToken();
-            const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`
+            });
             return headers;
           }
           upload(formData: FormData): Observable<HttpEvent<any>> {
